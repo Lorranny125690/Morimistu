@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+#text {
+  font-family: "JetBrains Mono", monospace;
+}
+
+#text-2 {
+  font-family: "Josefin Sans", sans-serif;
+}
+
+#text-3 {
+  font-family: "Josefin Slab", serif;
+}
