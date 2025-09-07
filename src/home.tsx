@@ -43,6 +43,11 @@ function Hero() {
     offset: ["start end", "end start"],
   });
 
+  const scrollToCards = () => {
+    const section = document.getElementById("cards");
+    section?.scrollIntoView({ behavior: "smooth" }); // rolagem suave
+  };
+
   // parallax MUITO leve
   const y = useTransform(scrollYProgress, [0, 1], [0, 40]);
 
@@ -86,9 +91,10 @@ function Hero() {
               No nosso serviço, ela garante <br /> evolução e conquistas duradouras.
             </p>
             <motion.button
-              className="mt-6 flex items-center gap-2 w-fit px-6 py-2 bg-[#29235F]/70 rounded-full text-sm hover:bg-[#3b3b4d] transition mx-auto md:mx-0"
+              className="hover:cursor-pointer mt-6 flex items-center gap-2 w-fit px-6 py-2 bg-[#29235F]/70 rounded-full text-sm hover:bg-[#3b3b4d] transition mx-auto md:mx-0"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={scrollToCards}
             >
               Ver o dia
             </motion.button>
@@ -149,7 +155,7 @@ function QuoteBox() {
 
 function Cards() {
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center py-12 bg-[#0D0C15]">
+    <section id="cards" className="min-h-screen flex flex-col justify-center items-center py-12 bg-[#0D0C15]">
       <motion.h2
         className="text-center text-4xl font-serif mb-20"
         initial={{ opacity: 0, y: -30 }}
