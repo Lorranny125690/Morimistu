@@ -67,6 +67,8 @@ export function SelectLogin() {
   );
 }
 
+import React, { useState } from "react";
+
 type FieldProps = {
   icon: React.ReactNode;
   label: string;
@@ -80,13 +82,11 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
       {icon}
     </div>
 
-    {/* coluna com label (faixa superior) + input (faixa inferior) */}
+    {/* coluna com label + input */}
     <div className="flex-1 flex flex-col">
-      {/* label com borda inferior */}
       <div className="h-5 flex items-center px-1 bg-[#222121] border-b border-[#C54848]">
         <span className="text-[10px] text-gray-200 font-serif">{label}</span>
       </div>
-      {/* input separado abaixo */}
       <input
         type={type}
         className="h-5 w-full bg-[#222121] px-1 text-[12px] text-white placeholder-gray-400 focus:outline-none"
@@ -95,9 +95,18 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
   </div>
 );
 
-
 export function Login() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = () => {
+    setLoading(true);
+
+    // simulação de carregamento (API, validação etc.)
+    setTimeout(() => {
+      navigate("/home");
+    }, 2000); // 2 segundos de loading
+  };
 
   return (
     <div
@@ -126,13 +135,14 @@ export function Login() {
             Esqueceu a senha?
           </a>
 
-          {/* botão com raio 30 em cima e 20 embaixo */}
-          <a href="/home"><button
-            className="x-auto mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white font-serif text-[15px] rounded-t-[30px] rounded-b-[20px] transition"
-            onClick={() => navigate("/dashboard")}
+          {/* botão login */}
+          <button
+            className="x-auto mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white font-serif text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
+            onClick={handleLogin}
+            disabled={loading}
           >
-            Entrar
-          </button></a>
+            {loading ? "Carregando..." : "Entrar"}
+          </button>
 
           <p className="text-lg text-gray-200 mt-6 font-serif text-center leading-tight">
             Não tem uma conta?
@@ -148,9 +158,17 @@ export function Login() {
           <img src={sideImage} alt="login" className="w-full h-full object-cover" />
         </div>
       </div>
+
+      {/* overlay de loading (spinner centralizado) */}
+      {loading && (
+        <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-red-600 border-t-transparent"></div>
+        </div>
+      )}
     </div>
   );
 }
+
 
 // Página: Trocar Senha
 export function ChangePassword() {
