@@ -23,16 +23,6 @@ const cards = [
   },
 ];
 
-// Animações padrão
-const fadeUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, delay },
-  }),
-};
-
 import { useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
@@ -45,10 +35,9 @@ function Hero() {
 
   const scrollToCards = () => {
     const section = document.getElementById("cards");
-    section?.scrollIntoView({ behavior: "smooth" }); // rolagem suave
+    section?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // parallax MUITO leve
   const y = useTransform(scrollYProgress, [0, 1], [0, 40]);
 
   return (
@@ -127,10 +116,6 @@ function QuoteBox() {
   return (
     <motion.section
       className="h-[600px] grid md:grid-cols-2 bg-[#D9D9D9] text-black shadow-[inset_0_40px_50px_rgba(0,0,0,0.25)]"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={fadeUp}
     >
       <div className="flex justify-center overflow-hidden">
         <motion.img
@@ -158,10 +143,6 @@ function Cards() {
     <section id="cards" className="min-h-screen flex flex-col justify-center items-center py-12 bg-[#0D0C15]">
       <motion.h2
         className="text-center text-4xl font-serif mb-20"
-        initial={{ opacity: 0, y: -30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
       >
         Escolha sua jornada
       </motion.h2>
@@ -174,7 +155,7 @@ function Cards() {
                       shadow-[-8px_8px_0px_#6b61bd] hover:scale-110 hover:shadow-[-12px_12px_0px_#4c3fa1] transition-all duration-300"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: i * 0.2 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             {card.icon}

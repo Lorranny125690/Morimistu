@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { SelectLogin, Login, ChangePassword } from "./teste";
+import { SelectLogin, ChangePassword } from "./teste";
 import { Home } from "./home";
+import { Login } from "./screens/auth/login";
 
 function App() {
   return (
