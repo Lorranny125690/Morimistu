@@ -3,10 +3,10 @@ import { FaBirthdayCake } from "react-icons/fa";
 import { FiBookOpen, FiEdit3, FiCalendar } from "react-icons/fi";
 import { motion } from "framer-motion";
 
-import hero from "./assets/woman.png";
-import image2 from "./assets/siymbol.png";
-import { Header } from "./components/header";
-import { Footer } from "./components/footer";
+import hero from "../../assets/woman.png";
+import image2 from "../../assets/siymbol.png";
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
 
 const cards = [
   {
