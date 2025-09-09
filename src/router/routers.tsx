@@ -11,7 +11,6 @@ function AppContent() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Defina quais rotas NÃO devem exibir o Header
   const noHeaderRoutes = ["/", "/login", "/change-password"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 

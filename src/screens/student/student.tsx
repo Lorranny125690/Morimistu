@@ -1,5 +1,6 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { IoIosSearch } from "react-icons/io";
 
 type Student = {
   id: number;
@@ -19,7 +20,25 @@ const studentsMock: Student[] = [
     beltColor: "red",
     degree: "1°",
     status: "Ativa",
-    photo: "https://i.pravatar.cc/40?img=65",
+    photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
+  },
+  {
+    id: 2,
+    name: "Deadlock",
+    number: "0000-0000",
+    beltColor: "red",
+    degree: "1°",
+    status: "Ativa",
+    photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
+  },
+  {
+    id: 3,
+    name: "Deadlock",
+    number: "0000-0000",
+    beltColor: "red",
+    degree: "1°",
+    status: "Ativa",
+    photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
   },
 ];
 
@@ -29,19 +48,20 @@ export function Student() {
       {/* Tabs */}
       <div className="border-b border-gray-700">
         <div className="max-w-6xl mx-auto flex items-center px-6">
-          <button className="py-2 px-4 border-b-2 border-blue-500 text-blue-500 font-medium">
+          <button className="hover:bg-slate-600 hover:rounded-sm hover:cursor-pointer transition py-2 px-4 border-b-2 border-blue-500 text-blue-500 font-medium">
             Graduando
           </button>
-          <button className="py-2 px-4 text-gray-400">
+          <button className="hover:bg-slate-600 hover:rounded-sm hover:cursor-pointer transition py-2 px-4 text-gray-400">
             Notificação sobre grau
           </button>
-          <div className="ml-auto">
-            <input
-              type="text"
-              placeholder="Pesquisar aluno"
-              className="px-3 py-1 rounded bg-[#1E1E2F] text-white text-sm placeholder-gray-400 focus:outline-none"
-            />
-          </div>
+            <div className="ml-auto relative">
+              <IoIosSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Pesquisar aluno"
+                className="pl-8 pr-3 py-1 rounded bg-[#1E1E2F] text-white text-sm placeholder-gray-400 focus:outline-none"
+              />
+            </div>
         </div>
       </div>
 
@@ -54,14 +74,14 @@ export function Student() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-5 py-2 bg-[#0070F3] hover:bg-blue-700 rounded-md font-medium transition"
+              className="hover:cursor-pointer px-5 py-2 bg-[#0070F3] hover:bg-blue-700 rounded-md font-medium transition"
             >
               Adicionar aluno
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-5 py-2 bg-[#0070F3] hover:bg-blue-700 rounded-md font-medium transition"
+              className="hover:cursor-pointer px-5 py-2 bg-[#0070F3] hover:bg-blue-700 rounded-md font-medium transition"
             >
               Filtrar por ▾
             </motion.button>
@@ -125,7 +145,7 @@ export function Student() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="px-4 py-1 bg-[#0070F3] hover:bg-blue-700 rounded-md text-white text-sm font-medium transition"
+                      className="hover:cursor-pointer px-4 py-1 bg-[#0070F3] hover:bg-blue-700 rounded-md text-white text-sm font-medium transition"
                     >
                       Ver
                     </motion.button>
