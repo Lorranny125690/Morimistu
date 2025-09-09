@@ -2,12 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import logo from "../assets/logo.svg";
 import { FaBars, FaTimes, FaRegUser } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const navLinks = [
-  { name: "Início", href: "#" },
-  { name: "Alunos", href: "#" },
-  { name: "Turmas", href: "#" },
-  { name: "Campeonatos", href: "#" },
+  { name: "Início", href: "/home" },
+  { name: "Alunos", href: "/student" },
+  { name: "Turmas", href: "/classes" },
+  { name: "Campeonatos", href: "/championship" },
 ];
 
 export function Header({
@@ -19,6 +20,8 @@ export function Header({
 }) {
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
+
+  const location = useLocation(); // Rota atual
 
   // Fecha quando clicar fora
   useEffect(() => {
@@ -39,7 +42,7 @@ export function Header({
   }, [profileOpen]);
 
   return (
-    <header className="z-50 bg-[#0D0C15] border-b border-gray-800 relative">
+    <header className="z-50 text-white bg-[#0D0C15] relative">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -58,7 +61,13 @@ export function Header({
               key={link.name}
               href={link.href}
               className={
-                link.name === "Início" ? "text-green-400" : "hover:text-gray-300"
+                location.pathname === link.href
+                  ? link.name === "Início"
+                    ? "text-green-400"
+                    : link.name === "Alunos"
+                    ? "text-violet-400"
+                    : "text-blue-400"
+                  : "hover:text-gray-300"
               }
             >
               {link.name}
@@ -117,8 +126,14 @@ export function Header({
               key={link.name}
               href={link.href}
               className={
-                link.name === "Início" ? "text-green-400" : "hover:text-gray-300"
-              }
+                location.pathname === link.href
+                  ? link.name === "Início"
+                    ? "text-green-400"
+                    : link.name === "Alunos"
+                    ? "text-violet-400"
+                    : "text-blue-400" // padrão para os outros
+                  : "hover:text-gray-300"
+              }              
             >
               {link.name}
             </a>

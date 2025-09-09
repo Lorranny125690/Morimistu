@@ -42,7 +42,7 @@ export function Login() {
 
   return (
     <div
-      className="relative min-h-screen min-w-screen flex items-center justify-center bg-cover bg-center"
+      className="z-1000 relative min-h-screen min-w-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="absolute inset-0 bg-[#1D1010]/70" />

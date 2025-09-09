@@ -168,11 +168,8 @@ function Cards() {
 }
 
 export function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-[#0D0C15] text-white font-sans">
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Hero />
       <QuoteBox />
       <Cards />
