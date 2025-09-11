@@ -6,6 +6,7 @@ import { SelectLogin } from "@/screens/auth/userType";
 import { ChangePassword } from "@/teste";
 import { Header } from "@/components/header";
 import { useState } from "react";
+import { Dashboard } from "@/screens/dashboard/dashboard";
 
 function AppContent() {
   const location = useLocation();
@@ -25,6 +26,7 @@ function AppContent() {
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/home" element={<Home />} />
           <Route path="/student" element={<Student />} />
+          <Route path="/dashboard" element={<Dashboard/>}/>
         </Routes>
       </main>
     </div>

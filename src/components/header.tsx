@@ -9,6 +9,7 @@ const navLinks = [
   { name: "Alunos", href: "/student" },
   { name: "Turmas", href: "/classes" },
   { name: "Campeonatos", href: "/championship" },
+  { name: "Estatísticas", href: "/dashboard" },
 ];
 
 export function Header({
