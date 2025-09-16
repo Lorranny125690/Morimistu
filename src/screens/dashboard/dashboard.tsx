@@ -106,7 +106,8 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, accent }) => (
 /* ---------------- Dashboard Page ---------------- */
 export const Dashboard: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0D0C15] via-[#161422] to-[#1E1A30] text-white font-sans px-6 py-10 space-y-12">
+    <div className="bg-gradient-to-br from-[#0D0C15] via-[#161422] to-[#1E1A30]">
+    <div className="max-w-6xl mx-auto min-h-screen text-white font-sans px-6 py-10 space-y-12">
       {/* Header */}
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -134,40 +135,40 @@ export const Dashboard: React.FC = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
           <StatCard
-            title="Alunos cadastrados"
+            title="Alunos registrados"
             value={mockStats.totalStudents}
-            icon={<FiUsers className="text-2xl text-white" />}
+            icon={<FiUsers className="text-lg text-white" />}
             accent="bg-[#6B61BD]"
           />
           <StatCard
             title="Aptos à graduação"
             value={mockStats.studentsEligible}
-            icon={<FiBookOpen className="text-2xl text-whit" />}
-            accent="bg-[#6b61bd]"
+            icon={<FiBookOpen className="text-lg text-white" />}
+            accent="bg-[#6B61BD]"
           />
           <StatCard
             title="Média de frequência"
             value={`${mockStats.avgAttendancePercent}%`}
-            icon={<FiEdit3 className="text-2xl text-white" />}
-            accent="bg-[#6b61bd]"
+            icon={<FiEdit3 className="text-lg text-white" />}
+            accent="bg-[#6B61BD]"
           />
           <StatCard
             title="Turmas ativas"
             value={mockStats.activeClasses}
-            icon={<FiUserCheck className="text-2xl text-white" />}
-            accent="bg-[#6b61bd]"
+            icon={<FiUserCheck className="text-lg text-white" />}
+            accent="bg-[#6B61BD]"
           />
           <StatCard
             title="Professores"
             value={mockStats.totalTeachers}
-            icon={<FiUsers className="text-2xl text-white" />}
-            accent="bg-[#6b61bd]"
+            icon={<FiUsers className="text-lg text-white" />}
+            accent="bg-[#6B61BD]"
           />
           <StatCard
             title="Aulas futuras"
             value={mockStats.futureClasses}
-            icon={<FiClock className="text-2xl text-[#6B61BD]" />}
-            accent="bg-[#6b61bd]"
+            icon={<FiClock className="text-lg text-white" />}
+            accent="bg-[#6B61BD]"
           />
         </div>
       </section>
@@ -312,6 +313,7 @@ export const Dashboard: React.FC = () => {
           </table>
         </div>
       </section>
+    </div>
     </div>
   );
 };
