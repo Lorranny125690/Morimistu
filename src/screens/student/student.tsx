@@ -9,6 +9,7 @@ type Student = {
   beltColor: string;
   degree: string;
   status: string;
+  frequency: number;
   photo?: string;
 };
 
@@ -17,32 +18,45 @@ const studentsMock: Student[] = [
     id: 1,
     name: "Deadlock",
     number: "0000-0000",
-    beltColor: "red",
+    beltColor: "Marrom",
     degree: "1°",
     status: "Ativa",
+    frequency: 12,
     photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
   },
   {
     id: 2,
     name: "Deadlock",
     number: "0000-0000",
-    beltColor: "red",
+    beltColor: "Azul",
     degree: "1°",
     status: "Ativa",
+    frequency: 12,
     photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
   },
   {
     id: 3,
     name: "Deadlock",
     number: "0000-0000",
-    beltColor: "red",
+    beltColor: "Branca",
     degree: "1°",
     status: "Ativa",
+    frequency: 12,
     photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
   },
 ];
 
+// Define o mapa de classes das faixas
+const beltClasses: Record<string, string> = {
+  Branca: "bg-gray-300 text-black",
+  Azul: "bg-blue-500 text-white",
+  Roxa: "bg-purple-600 text-white",
+  Marrom: "bg-amber-800 text-white",
+  Preta: "bg-black text-white",
+};
+
 export function Student() {
+  
   return (
     <div className="min-h-screen bg-[#0D0C15] text-white font-sans">
       {/* Tabs */}
@@ -126,9 +140,7 @@ export function Student() {
                   <td className="py-3 px-4">{student.number}</td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className={`inline-block w-6 h-6 rounded ${
-                        student.beltColor === "red" ? "bg-red-600" : "bg-gray-500"
-                      }`}
+                      className={`inline-block w-6 h-6 rounded ${beltClasses[student.beltColor]}`}
                     />
                   </td>
                   <td className="py-3 px-4 text-center">{student.degree}</td>
