@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import hero from "../../assets/woman.png";
 import image2 from "../../assets/siymbol.png";
 import { Footer } from "../../components/footer";
+import { MdCalendarMonth } from "react-icons/md";
 
 const cards = [
   {
@@ -80,11 +81,12 @@ function Hero() {
               No nosso serviço, ela garante <br /> evolução e conquistas duradouras.
             </p>
             <motion.button
-              className="hover:cursor-pointer mt-6 flex items-center gap-2 w-fit px-6 py-2 bg-[#29235F]/70 rounded-full text-sm hover:bg-[#3b3b4d] transition mx-auto md:mx-0"
+              className="hover:cursor-pointer text-lg mt-6 flex items-center gap-2 w-40 h-15 px-6 py-2 bg-[#29235F]/70 rounded-full hover:bg-[#3b3b4d] transition mx-auto md:mx-0"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={scrollToCards}
             >
+              <MdCalendarMonth/>
               Ver o dia
             </motion.button>
           </div>
@@ -169,7 +171,7 @@ function Cards() {
 
 export function Home() {
   return (
-    <div className="min-h-screen bg-[#0D0C15] text-white font-sans">
+    <div className="min-h-screen bg-[#0D0C15] text-white font-serif">
       <Hero />
       <QuoteBox />
       <Cards />
