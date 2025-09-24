@@ -7,12 +7,13 @@ import { ChangePassword } from "@/teste";
 import { Header } from "@/components/header";
 import { useState } from "react";
 import { Dashboard } from "@/screens/dashboard/dashboard";
+import { StudentScreen  } from "@/screens/student/add";
 
 function AppContent() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const noHeaderRoutes = ["/", "/login", "/change-password"];
+  const noHeaderRoutes = ["/", "/login", "/change-password", "/add_student"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   return (
@@ -26,7 +27,8 @@ function AppContent() {
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/home" element={<Home />} />
           <Route path="/student" element={<Student />} />
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/dashboard" element={<Dashboard />}/>
+          <Route path="/add_student" element={<StudentScreen />}/>
         </Routes>
       </main>
     </div>

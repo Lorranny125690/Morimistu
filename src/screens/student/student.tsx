@@ -1,6 +1,7 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { IoIosSearch } from "react-icons/io";
+import { Navigate } from "react-router-dom";
 
 type Student = {
   id: number;
@@ -22,7 +23,7 @@ const studentsMock: Student[] = [
     degree: "1°",
     status: "Ativa",
     frequency: 12,
-    photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
+    photo: "https://static.vecteezy.com/system/resources/previews/032/176/197/non_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg",
   },
   {
     id: 2,
@@ -32,7 +33,7 @@ const studentsMock: Student[] = [
     degree: "1°",
     status: "Ativa",
     frequency: 12,
-    photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
+    photo: "https://static.vecteezy.com/system/resources/previews/032/176/197/non_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg",
   },
   {
     id: 3,
@@ -42,7 +43,7 @@ const studentsMock: Student[] = [
     degree: "1°",
     status: "Ativa",
     frequency: 12,
-    photo: "https://i.pinimg.com/736x/74/86/d1/7486d118afefd9aea487c67487d8b2c6.jpg",
+    photo: "https://static.vecteezy.com/system/resources/previews/032/176/197/non_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg",
   },
 ];
 
@@ -85,13 +86,13 @@ export function Student() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-xl font-semibold">Alunos graduando</h1>
           <div className="flex gap-3">
-            <motion.button
+            <a href="/add_student"><motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="hover:cursor-pointer px-5 py-2 bg-[#0070F3] hover:bg-blue-700 rounded-md font-medium transition"
             >
               Adicionar aluno
-            </motion.button>
+            </motion.button></a>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
