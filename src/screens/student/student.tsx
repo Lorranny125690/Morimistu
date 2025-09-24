@@ -117,6 +117,7 @@ export function Student() {
                 <th className="py-3 px-4 w-70">Número</th>
                 <th className="py-3 px-4 w-20 text-center">Faixa</th>
                 <th className="py-3 px-4 w-16 text-center">Grau</th>
+                <th className="py-3 px-4 w-24 text-center">Frequência</th>
                 <th className="py-3 px-4 w-24 text-center">Status</th>
                 <th className="py-3 px-4 w-28 text-center">Operação</th>
                 <th className="py-3 px-4 w-24 text-center">Conferir</th>
@@ -144,6 +145,7 @@ export function Student() {
                     />
                   </td>
                   <td className="py-3 px-4 text-center">{student.degree}</td>
+                  <td className="py-3 px-4 text-center">{student.frequency}</td>
                   <td className="py-3 px-4 text-center text-green-500 font-medium">
                     {student.status}
                   </td>
