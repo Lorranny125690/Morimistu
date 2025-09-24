@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export function StudentScreen() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ export function StudentScreen() {
     frequencia: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -25,7 +28,7 @@ export function StudentScreen() {
     <div className="flex min-h-screen items-center justify-center bg-[#41414B] flex-col">
       {/* Botão de Logout */}
       <div className="w-[1100px] flex justify-start max-w-7xl mb-6">
-        <button className="text-gray-300 hover:text-white transition">
+        <button onClick={() => navigate(-1)} className="text-gray-300 hover:text-white transition">
           <FiLogOut size={28} />
         </button>
       </div>
@@ -43,14 +46,14 @@ export function StudentScreen() {
           transition={{ duration: 0.6 }}
         >
           {/* Card Perfil */}
-          <div className="bg-white shadow-lg rounded-lg p-6 w-[200px] h-[411px] border border-gray-100">
+          <div className="bg-white shadow-lg rounded-lg p-6 w-[250px] h-[411px] border border-gray-100">
             <div className="flex flex-col items-center">
               <img
                 src={formData.photo}
                 alt="Deadlock"
-                className="w-20 h-20 rounded-full shadow-md"
+                className="w-[94px] h-[94px] rounded-full shadow-md"
               />
-              <h2 className="mt-4 font-semibold text-lg">Deadlock</h2>
+              <h2 className="font-semibold text-lg mt-4">Deadlock</h2>
               <p className="text-gray-400 text-sm">faixa branca</p>
             </div>
 
@@ -62,19 +65,19 @@ export function StudentScreen() {
                 </span>
               </p>
               <p>
-                Nome: <span className="text-gray-400">Ishi Valorant</span>
+                Nome: <span className="text-gray-400"> Ishi Valorant</span>
               </p>
               <p>
-                Idade: <span className="text-gray-400">14 anos</span>
+                Idade: <span className="text-gray-400"> 14 anos</span>
               </p>
               <p>
-                Cpf: <span className="text-gray-400">000.000.000-00</span>
+                Cpf: <span className="text-gray-400"> 000.000.000-00</span>
               </p>
             </div>
           </div>
 
           {/* Card Formulário */}
-          <div className="bg-white shadow-lg rounded-lg p-6 w-[679px] h-[411px] border border-gray-100">
+          <div className="bg-white shadow-lg rounded-lg p-6 w-[700px] h-[411px] border border-gray-100">
             <div className="border-b mb-4 flex gap-6 items-center">
               <h3 className="text-gray-700 font-medium text-lg">Dados</h3>
               <h3 className="text-gray-400 font-regular text-lg">Enturmar</h3>
@@ -82,13 +85,13 @@ export function StudentScreen() {
 
             <form className="grid grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm text-gray-500">Nome</label>
+                <label className="block text-[15px] px-1 text-gray-500">Nome</label>
                 <input
                   type="text"
                   name="nome"
                   value={formData.nome}
                   onChange={handleChange}
-                  className="w-full border-gray-300 border rounded-md px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-blue-400"
+                  className="w-[200px] h-[24px] text-[12px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
@@ -99,62 +102,62 @@ export function StudentScreen() {
                   name="nascimento"
                   value={formData.nascimento}
                   onChange={handleChange}
-                  className="w-full border-gray-300 border rounded-md px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-blue-400"
+                  className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm text-gray-500">Contato</label>
+                <label className="block text-gray-500">Contato</label>
                 <input
                   type="text"
                   name="contato"
                   value={formData.contato}
                   onChange={handleChange}
-                  className="w-full border-gray-300 border rounded-md px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-blue-400"
+                  className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm text-gray-500">Matrícula (opcional)</label>
+                <label className="block text-gray-500">Matrícula (opcional)</label>
                 <input
                   type="text"
                   name="matricula"
                   value={formData.matricula}
                   onChange={handleChange}
-                  className="w-full border-gray-300 border rounded-md px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-blue-400"
+                  className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm text-gray-500">Email</label>
+                <label className="block text-gray-500">Email</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full border-gray-300 border rounded-md px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-blue-400"
+                  className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm text-gray-500">Frequência</label>
+                <label className="block text-gray-500">Frequência</label>
                 <input
                   type="text"
                   name="frequencia"
                   value={formData.frequencia}
                   onChange={handleChange}
-                  className="w-full border-gray-300 border rounded-md px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-blue-400"
+                  className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm text-gray-500">CPF</label>
+                <label className="block text-gray-500">CPF</label>
                 <input
                   type="text"
                   name="cpf"
                   value={formData.cpf}
                   onChange={handleChange}
-                  className="w-full border-gray-300 border rounded-md px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-blue-400"
+                  className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
                 />
               </div>
               
