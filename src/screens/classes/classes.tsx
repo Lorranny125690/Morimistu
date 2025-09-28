@@ -88,7 +88,7 @@ export function Classes() {
                 <div className="flex flex-row gap-4 mt-12 text-gray-400 text-sm">
                   <div className="flex items-center gap-2">
                     <PiStudentBold size={14} />
-                    <p className="text-[8px]">{classe.classmates || "0"}</p>
+                    <p>{classe.classmates || "0"}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <FaCalendarAlt size={14} />
