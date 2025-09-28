@@ -10,7 +10,7 @@ export function Choice() {
   const location = useLocation();
 
   return (
-    <div className="border-b border-gray-700">
+    <div className="border-b border-gray-700 mt-4">
       <div className="max-w-6xl mx-auto flex items-center px-6">
         {navLinks.map((link) => (
           <a
@@ -19,7 +19,7 @@ export function Choice() {
             className={`"hover:bg-slate-600 hover:rounded-sm hover:cursor-pointer transition py-2 px-4 font-medium ${
               location.pathname === link.href
                 ? "border-b-2 border-blue-500 text-blue-500"
-                : "text-white hover:text-gray-300"
+                : "text-gray-300 hover:text-gray-100"
             }`}
             role="button"
           >

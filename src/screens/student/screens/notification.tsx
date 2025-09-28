@@ -15,23 +15,7 @@ export function Notification() {
       <div className="max-w-6xl mx-auto px-6 mt-8">
         {/* Título + botões */}
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Alunos graduando</h1>
-          <div className="flex gap-3">
-            <a href="/add_student"><motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="hover:cursor-pointer px-5 py-2 bg-[#0070F3] hover:bg-blue-700 rounded-md font-medium transition"
-            >
-              Adicionar aluno
-            </motion.button></a>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="hover:cursor-pointer px-5 py-2 bg-[#0070F3] hover:bg-blue-700 rounded-md font-medium transition"
-            >
-              Filtrar por ▾
-            </motion.button>
-          </div>
+          <h1 className="text-xl font-semibold">Aptos a graduar</h1>
         </div>
 
         {/* Card com tabela */}

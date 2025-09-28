@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Dashboard } from "@/screens/dashboard/dashboard";
 import { StudentScreen  } from "@/screens/student/screens/add";
 import { Notification } from "@/screens/student/screens/notification";
+import { Classes } from "@/screens/classes/classes";
 
 function AppContent() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function AppContent() {
           <Route path="/dashboard" element={<Dashboard />}/>
           <Route path="/add_student" element={<StudentScreen />}/>
           <Route path="/notification" element={<Notification/>}/>
+          <Route path="/classes" element={<Classes/>}/>
         </Routes>
       </main>
     </div>

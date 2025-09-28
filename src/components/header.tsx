@@ -6,8 +6,8 @@ import { useLocation } from "react-router-dom";
 
 const navLinks = [
   { name: "Início", href: "/home" },
-  { name: "Alunos", href: "/student" },
-  { name: "Turmas", href: "/classes" },
+  { name: "Alunos", href: ["/student", "/notification"] },
+  { name: "Turmas", href:  "/classes"},
   { name: "Campeonatos", href: "/championship" },
   { name: "Estatísticas", href: "/dashboard" },
 ];
@@ -57,23 +57,29 @@ export function Header({
 
         {/* Menu desktop */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={
-                location.pathname === link.href
-                  ? link.name === "Início"
-                    ? "text-green-400"
-                    : link.name === "Alunos"
-                    ? "text-violet-400"
-                    : "text-blue-400"
-                  : "hover:text-gray-300"
-              }
-            >
-              {link.name}
-            </a>
-          ))}
+        {navLinks.map((link) => {
+            // Normaliza pra array sempre
+            const hrefs = Array.isArray(link.href) ? link.href : [link.href];
+            const isActive = hrefs.includes(location.pathname);
+
+            return (
+              <a
+                key={link.name}
+                href={hrefs[0]} // usa o primeiro como principal
+                className={
+                  isActive
+                    ? link.name === "Início"
+                      ? "text-green-400"
+                      : link.name === "Alunos"
+                      ? "text-violet-400"
+                      : "text-blue-400"
+                    : "hover:text-gray-300"
+                }
+              >
+                {link.name}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Botões */}
@@ -122,23 +128,27 @@ export function Header({
       {/* Dropdown mobile */}
       {menuOpen && (
         <div className="absolute top-full left-0 w-full bg-[#0D0C15] border-t border-gray-800 flex flex-col items-center py-4 space-y-4 md:hidden">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={
-                location.pathname === link.href
-                  ? link.name === "Início"
-                    ? "text-green-400"
-                    : link.name === "Alunos"
-                    ? "text-violet-400"
-                    : "text-blue-400" // padrão para os outros
-                  : "hover:text-gray-300"
-              }              
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = link.href.includes(location.pathname);
+
+            return (
+              <a
+                key={link.name}
+                href={link.href[0]}
+                className={
+                  isActive
+                    ? link.name === "Início"
+                      ? "text-green-400"
+                      : link.name === "Alunos"
+                      ? "text-violet-400"
+                      : "text-blue-400"
+                    : "hover:text-gray-300"
+                }
+              >
+                {link.name}
+              </a>
+            );
+          })}
         </div>
       )}
     </header>
