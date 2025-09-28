@@ -1,85 +1,16 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { IoIosSearch } from "react-icons/io";
-import { Navigate } from "react-router-dom";
-
-type Student = {
-  id: number;
-  name: string;
-  number: string;
-  beltColor: string;
-  degree: string;
-  status: string;
-  frequency: number;
-  photo?: string;
-};
-
-const studentsMock: Student[] = [
-  {
-    id: 1,
-    name: "Deadlock",
-    number: "0000-0000",
-    beltColor: "Marrom",
-    degree: "1°",
-    status: "Ativa",
-    frequency: 12,
-    photo: "https://static.vecteezy.com/system/resources/previews/032/176/197/non_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg",
-  },
-  {
-    id: 2,
-    name: "Deadlock",
-    number: "0000-0000",
-    beltColor: "Azul",
-    degree: "1°",
-    status: "Ativa",
-    frequency: 12,
-    photo: "https://static.vecteezy.com/system/resources/previews/032/176/197/non_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg",
-  },
-  {
-    id: 3,
-    name: "Deadlock",
-    number: "0000-0000",
-    beltColor: "Branca",
-    degree: "1°",
-    status: "Ativa",
-    frequency: 12,
-    photo: "https://static.vecteezy.com/system/resources/previews/032/176/197/non_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg",
-  },
-];
-
-// Define o mapa de classes das faixas
-const beltClasses: Record<string, string> = {
-  Branca: "bg-gray-300 text-black",
-  Azul: "bg-blue-500 text-white",
-  Roxa: "bg-purple-600 text-white",
-  Marrom: "bg-amber-800 text-white",
-  Preta: "bg-black text-white",
-};
+import { studentsMock } from "../components/studentMosck";
+import { beltClasses } from "../components/beltclasses";
+import { Choice } from "../components/choose";
 
 export function Student() {
   
   return (
     <div className="min-h-screen bg-[#0D0C15] text-white font-sans">
       {/* Tabs */}
-      <div className="border-b border-gray-700">
-        <div className="max-w-6xl mx-auto flex items-center px-6">
-          <button className="hover:bg-slate-600 hover:rounded-sm hover:cursor-pointer transition py-2 px-4 border-b-2 border-blue-500 text-blue-500 font-medium">
-            Graduando
-          </button>
-          <button className="hover:bg-slate-600 hover:rounded-sm hover:cursor-pointer transition py-2 px-4 text-gray-400">
-            Notificação sobre grau
-          </button>
-            <div className="ml-auto relative">
-              <IoIosSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Pesquisar aluno"
-                className="pl-8 pr-3 py-1 rounded bg-[#1E1E2F] text-white text-sm placeholder-gray-400 focus:outline-none"
-              />
-            </div>
-        </div>
-      </div>
-
+      <Choice />
+      
       {/* Conteúdo */}
       <div className="max-w-6xl mx-auto px-6 mt-8">
         {/* Título + botões */}

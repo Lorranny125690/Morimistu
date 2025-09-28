@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Home } from "@/screens/home/home";
-import { Student } from "@/screens/student/student";
+import { Student } from "@/screens/student/screens/student";
 import { Login } from "@/screens/auth/login";
 import { SelectLogin } from "@/screens/auth/userType";
 import { ChangePassword } from "@/teste";
 import { Header } from "@/components/header";
 import { useState } from "react";
 import { Dashboard } from "@/screens/dashboard/dashboard";
-import { StudentScreen  } from "@/screens/student/add";
+import { StudentScreen  } from "@/screens/student/screens/add";
+import { Notification } from "@/screens/student/screens/notification";
 
 function AppContent() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function AppContent() {
           <Route path="/student" element={<Student />} />
           <Route path="/dashboard" element={<Dashboard />}/>
           <Route path="/add_student" element={<StudentScreen />}/>
+          <Route path="/notification" element={<Notification/>}/>
         </Routes>
       </main>
     </div>
