@@ -1,4 +1,4 @@
-import { FaUser } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { motion } from "framer-motion";
 import { PiStudentBold } from "react-icons/pi";
@@ -76,19 +76,24 @@ export function Championship() {
                   {classe.name || "Turma de faixas pretas"}
                 </h2>
 
-                <div className="flex flex-row items-center gap-4 text-gray-300">
+                <div className="flex flex-row justify-center mt-5 text-[12px] items-center gap-4 text-gray-300">
                   <div className="flex items-center flex-row gap-2">
-                    <FaUser size={14} />
+                    <p>Idade: </p>
                     <p className="text-sm">{classe.idade || "Instrutor não definido"}</p>
                   </div>
                   <div className="flex flex-row items-center gap-2">
-                    <FaUser size={14} />
+                    <p>Faixa: </p>
                     <p className="text-sm">{classe.faixa || "Instrutor não definido"}</p>
                   </div>
                 </div>
 
+                <div className="flex items-center justify-center gap-6">
+                  <FaEdit className="cursor-pointer hover:text-blue-500 transition" />
+                  <FaTrash className="cursor-pointer hover:text-red-500 transition" />
+                </div>
+
                 {/* Infos */}
-                <div className="flex flex-row gap-4 mt-12 text-gray-400 text-sm">
+                <div className="flex flex-row gap-2 mt-8 text-gray-400 text-[10px]">
                   <div className="flex items-center gap-2">
                     <PiStudentBold size={14} />
                     <p>{classe.classmates || "0"}</p>

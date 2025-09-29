@@ -1,4 +1,4 @@
-import { FaUser, FaSearch } from "react-icons/fa";
+import { FaUser, FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { IoMdAdd } from "react-icons/io";
 import { classesMock } from "./components/classesMock";
@@ -33,7 +33,7 @@ export function Classes() {
 
           {/* Search + Add button */}
           <div className="flex items-center justify-center gap-6">
-            <div className="flex items-center justify-center h-[50px] w-[50px] bg-[#323D4E] rounded-full hover:bg-[#3f4c63] cursor-pointer">
+            <div className="flex hover:scale-110 transition items-center justify-center h-[50px] w-[50px] bg-[#323D4E] rounded-full hover:bg-[#3f4c63] cursor-pointer">
               <FaSearch size={20} />
             </div>
             <motion.button
@@ -54,17 +54,21 @@ export function Classes() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex max-w-6xl mx-auto mt-6"
+        className="flex max-w-6xl mx-auto mt-10"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[64px] w-full">
           {classesMock.map((classe, index) => (
             <motion.div
               key={index}
               whileHover={{ scale: 1.02 }}
-              className="bg-[#19262A] rounded-lg overflow-hidden shadow-md"
             >
+              <div className="flex justify-end items-center gap-3 w-full mb-4">
+                <FaEdit className="cursor-pointer hover:text-blue-500 transition" />
+                <FaTrash className="cursor-pointer hover:text-red-500 transition" />
+              </div>
+
               {/* Imagem */}
-              <div className="h-[200px] w-full overflow-hidden">
+              <div className="bg-[#19262A] rounded-b-[6px]"><div className="h-[200px] w-full overflow-hidden">
                 <img
                   src={classe.image}
                   alt={classe.name}
@@ -85,7 +89,7 @@ export function Classes() {
                 </div>
 
                 {/* Infos */}
-                <div className="flex flex-row gap-4 mt-12 text-gray-400 text-sm">
+                <div className="flex flex-row gap-2 mt-12 text-gray-400 text-[10px]">
                   <div className="flex items-center gap-2">
                     <PiStudentBold size={14} />
                     <p>{classe.classmates || "0"}</p>
@@ -99,6 +103,7 @@ export function Classes() {
                     <p>{classe.local || "Local indefinido"}</p>
                   </div>
                 </div>
+              </div>
               </div>
             </motion.div>
           ))}
