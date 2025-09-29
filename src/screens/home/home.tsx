@@ -1,4 +1,3 @@
-import { Footer } from "../../components/footer";
 import { Hero } from "./components/hero.tsx"
 import { QuoteBox } from "./components/quotebox.tsx";
 import { Cards } from "./components/card.tsx";
@@ -9,7 +8,6 @@ export function Home() {
       <Hero />
       <QuoteBox />
       <Cards />
-      <Footer />
     </div>
   );
 }

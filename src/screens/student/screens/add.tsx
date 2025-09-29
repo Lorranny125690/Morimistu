@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import bgImage from "../../../assets/image4.png"
 
 export function StudentScreen() {
+
   const [formData, setFormData] = useState({
-    photo: "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
+    photo: "https://i.pinimg.com/1200x/b7/61/28/b76128b44ffbef517719785ede8c1abe.jpg",
     nome: "",
     contato: "",
     email: "",
@@ -13,6 +15,8 @@ export function StudentScreen() {
     nascimento: "",
     matricula: "",
     frequencia: "",
+    faixa: "",
+    idade: 0,
   });
 
   const navigate = useNavigate();
@@ -24,163 +28,202 @@ export function StudentScreen() {
     });
   };
 
+  const calculateAge = (nascimento: string) => {
+    const anoAtual = new Date().getFullYear();
+    const dataNascimento = new Date(nascimento);
+    let idade = anoAtual - dataNascimento.getFullYear();
+
+    // Verifica se a data de aniversário já passou neste ano
+    const mesAtual = new Date().getMonth();
+    const mesNascimento = dataNascimento.getMonth();
+    const diaAtual = new Date().getDate();
+    const diaNascimento = dataNascimento.getDate();
+
+    // Se a data de nascimento não ocorreu ainda este ano, subtrai 1 da idade
+    if (mesNascimento > mesAtual || (mesNascimento === mesAtual && diaNascimento > diaAtual)) {
+      idade--;
+    }
+
+    return idade;
+  };
+
+  // Atualizar a idade sempre que o valor da data de nascimento mudar
+  useEffect(() => {
+    if (formData.nascimento) {
+      const idadeCalculada = calculateAge(formData.nascimento);
+      setFormData((prev) => ({ ...prev, idade: idadeCalculada }));
+    }
+  }, [formData.nascimento]);
+
   return (
-<div className="flex min-h-screen items-center justify-center bg-[#41414B] flex-col">
-  {/* Botão de Logout */}
-  <div className="w-full px-6 m-[-50px] flex justify-start max-w-7xl mb-6">
-    <button onClick={() => navigate(-1)} className=" hover:cursor-pointer text-gray-300 hover:text-white transition">
-      <FiLogOut size={28} />
-    </button>
-  </div>
-
-  {/* Container principal */}
-  <div className="relative w-full max-w-7xl h-[721px] bg-white flex items-center justify-center rounded-lg shadow-xl overflow-hidden">
-    <div className="absolute top-0 left-0 w-full h-[40%] bg-[#11101D]" />
-    <div className="absolute bottom-0 left-0 w-full h-[60%] bg-white" />
-
-    {/* Cards */}
-    <motion.div
-      className="relative flex gap-20 z-10"
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      {/* Card Perfil */}
-      <div className="bg-white shadow-lg rounded-lg p-6 w-[250px] h-[411px] border border-gray-100">
-        <div className="flex flex-col items-center">
-          <img
-            src={formData.photo}
-            alt="Deadlock"
-            className="w-[94px] h-[94px] rounded-full shadow-md"
-          />
-          <h2 className="font-semibold text-lg mt-4">Deadlock</h2>
-          <p className="text-gray-400 text-sm">faixa branca</p>
-        </div>
-
-        <div className="mt-6 text-sm text-gray-600 space-y-3">
-          <p>
-            Frequências: {" "}
-            <span className="text-indigo-500 cursor-pointer hover:underline">
-              15 presenças
-            </span>
-          </p>
-          <p>
-            Nome: <span className="text-gray-400"> Ishi Valorant</span>
-          </p>
-          <p>
-            Idade: <span className="text-gray-400"> 14 anos</span>
-          </p>
-          <p>
-            Cpf: <span className="text-gray-400"> 000.000.000-00</span>
-          </p>
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-[#41414B] flex-col">
+      {/* Botão de Logout */}
+      <div className="w-full px-6 m-[-50px] flex justify-start max-w-7xl mb-6">
+        <button
+          onClick={() => navigate(-1)}
+          className="hover:cursor-pointer text-gray-300 hover:text-white transition"
+        >
+          <FiLogOut size={28} />
+        </button>
       </div>
 
-      {/* Card Formulário */}
-      <div className="bg-white shadow-lg rounded-lg p-6 w-[700px] h-[411px] border border-gray-100">
-        <div className="border-b mb-4 flex gap-6 items-center">
-          <h3 className="text-gray-700 font-medium text-lg">Dados</h3>
-          <h3 className="hover:cursor-pointer text-gray-400 font-regular text-lg">Enturmar</h3>
-        </div>
+      {/* Container principal */}
+      <div className="relative w-full max-w-7xl h-[721px] bg-white flex items-center justify-center shadow-xl overflow-hidden">
+      <div
+          className="absolute top-0 left-0 w-full h-[40%] bg-cover bg-center"
+          style={{ backgroundImage: `url(${bgImage})` }}
+        />
+        <div className="absolute bottom-0 left-0 w-full h-[60%] bg-white" />
 
-        <form className="grid grid-cols-2 gap-6">
-          <div>
-            <label className="block text-[15px] px-1 text-gray-500">Nome</label>
-            <input
-              type="text"
-              name="nome"
-              value={formData.nome}
-              onChange={handleChange}
-              className="w-[200px] h-[24px] text-[12px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
-            />
+        {/* Cards */}
+        <motion.div
+          className="relative flex gap-12 z-10"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Card Perfil */}
+          <div className="flex flex-col justify-center items-center bg-white shadow-lg space-y-6 p-6 w-[200px] h-[410px] border border-gray-100">
+            {/* Foto e informações básicas */}
+            <div className="flex flex-col items-center">
+              <img
+                src={formData.photo}
+                alt={formData.nome}
+                className="w-[94px] h-[94px] rounded-[50px]"
+              />
+              <h2 id="poppins" className="font-regular text-black text-[15px] mt-4">{formData.nome}</h2>
+              <p id="poppins" className="text-gray-400 text-[10px]">{formData.faixa}</p>
+            </div>
+
+            {/* Detalhes */}
+            <div id="poppins" className="flex flex-col gap-4 text-[10px] text-gray-600">
+              {[
+                { label: "Frequência", value: formData.frequencia },
+                { label: "Nome", value: formData.nome },
+                { label: "Idade", value: formData.idade },
+                { label: "CPF", value: formData.cpf },
+              ].map((item) => (
+                <div id="poppins" key={item.label} className="flex items-center gap-3">
+                  <p className="w-[50px] flex justify-center items-center text-black">{item.label}</p>
+                  <div className="w-[1px] h-6 bg-[#A5A1C9]/70" />
+                  <span className="text-[#A5A1C9]/70">{item.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm text-gray-500">Data de nascimento</label>
-            <input
-              type="date"
-              name="nascimento"
-              value={formData.nascimento}
-              onChange={handleChange}
-              className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+          {/* Card Formulário */}
+          <div className="bg-white shadow-lg flex flex-col items-center w-[679px] h-[410px] border border-gray-100 flex flex-col justify-between">
+            <div className="flex flex-col w-full">
+              <div className="border-b-2 border-gray-200 py-5 mb-4 flex items-center">
+                <h3 className="px-4 text-gray-700 font-medium text-[10px]">Dados</h3>
+                <h3 className="hover:cursor-pointer text-gray-400 font-regular text-[10px]">Enturmar</h3>
+              </div>
 
-          <div>
-            <label className="block text-gray-500">Contato</label>
-            <input
-              type="text"
-              name="contato"
-              value={formData.contato}
-              onChange={handleChange}
-              className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+              <form className="px-10 grid grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-[10px] text-black">Nome</label>
+                  <input
+                    type="text"
+                    name="nome"
+                    value={formData.nome}
+                    onChange={handleChange}
+                    className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
+                  />
+                </div>
 
-          <div>
-            <label className="block text-gray-500">Matrícula (opcional)</label>
-            <input
-              type="text"
-              name="matricula"
-              value={formData.matricula}
-              onChange={handleChange}
-              className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+                <div>
+                  <label className="block text-[10px] text-black">Data de nascimento</label>
+                  <input
+                    type="date"
+                    name="nascimento"
+                    value={formData.nascimento}
+                    onChange={handleChange}
+                    className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
+                  />
+                </div>
 
-          <div>
-            <label className="block text-gray-500">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+                <div>
+                  <label className="block text-[10px] text-black">Contato</label>
+                  <input
+                    type="text"
+                    name="contato"
+                    value={formData.contato}
+                    onChange={handleChange}
+                    className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
+                  />
+                </div>
 
-          <div>
-            <label className="block text-gray-500">Frequência</label>
-            <input
-              type="text"
-              name="frequencia"
-              value={formData.frequencia}
-              onChange={handleChange}
-              className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+                <div>
+                  <label className="block text-[10px] text-black">Matrícula (opcional)</label>
+                  <input
+                    type="text"
+                    name="matricula"
+                    value={formData.matricula}
+                    onChange={handleChange}
+                    className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
+                  />
+                </div>
 
-          <div>
-            <label className="block text-gray-500">CPF</label>
-            <input
-              type="text"
-              name="cpf"
-              value={formData.cpf}
-              onChange={handleChange}
-              className="w-[200px] h-[24px] text-[15px] text-black border-gray-300 border rounded-md px-1 py-2 mt-1 focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+                <div>
+                  <label className="block text-[10px] text-black">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
+                  />
+                </div>
 
-          {/* Botões */}
-          <div className="flex justify-end items-center mt-8 space-x-6">
-            <button
-              type="button"
-              className="text-gray-400 text-sm hover:text-gray-600 transition"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              className="hover:cursor-pointer bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-full px-6 py-2 shadow-md transition"
-            >
-              Enturmar
-            </button>
+                <div>
+                  <label className="block text-[10px] text-black">Frequência</label>
+                  <input
+                    type="text"
+                    name="frequencia"
+                    value={formData.frequencia}
+                    onChange={handleChange}
+                    className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] text-black">CPF</label>
+                  <input
+                    type="text"
+                    name="cpf"
+                    value={formData.cpf}
+                    onChange={handleChange}
+                    className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-[10px] text-black">Faixa</label>
+                  <input
+                    type="text"
+                    name="faixa"
+                    value={formData.faixa}
+                    onChange={handleChange}
+                    className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
+                  />
+                </div>
+              </form>
+              <div className="flex justify-end items-center mt-5 space-x-6">
+              <button type="button" className="text-gray-400 text-sm hover:text-gray-600 transition">
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className="hover:cursor-pointer mr-16 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-full px-6 py-2 shadow-md transition"
+              >
+                Enturmar
+              </button>
+            </div>
+            </div>
           </div>
-        </form>
+        </motion.div>
       </div>
-    </motion.div>
-  </div>
-</div>
-
+    </div>
   );
 }

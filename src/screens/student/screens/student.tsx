@@ -74,7 +74,7 @@ export function Student() {
                   <td className="py-3 px-4">{student.number}</td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className={`inline-block w-6 h-6 rounded-full ${beltClasses[student.beltColor]}`}
+                      className={`inline-block w-6 h-6 rounded-md ${beltClasses[student.beltColor]}`}
                     />
                   </td>
                   <td className="py-3 px-4 text-center">{student.degree}</td>
