@@ -1,6 +1,7 @@
 import { IoIosExit } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
+import { AiOutlineTeam } from "react-icons/ai";
 
 export const StudentProfile = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export const StudentProfile = () => {
       >
         {/* Header */}
         <motion.div
-          className="flex flex-col bg-[#564E9B] rounded-t-lg p-6"
+          className="flex h-60 flex-col bg-[#564E9B] rounded-t-lg p-6"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -41,12 +42,12 @@ export const StudentProfile = () => {
               <img
                 src="https://i.pinimg.com/736x/4e/cc/bb/4eccbb1c77b903b7257770e0ecd76d1d.jpg"
                 alt="Perfil"
-                className="h-32 w-32 rounded-full"
+                className="h-32 w-32 rounded-full hover:scale-110 transition-all cursor-pointer"
               />
               <div className="flex items-center flex-col">
                 <h1 className="text-[50px] h-15 font-bold text-white">Garu</h1>
-                <p className="text-[40px] text-white">Faixa preta</p>
-                <p className="text-[15px] text-white">15 anos</p>
+                <p className="text-[40px] font-medium text-white/60">Faixa preta</p>
+                <p className="text-[20px] text-white">15 anos</p>
               </div>
             </motion.div>
           </div>
@@ -60,11 +61,16 @@ export const StudentProfile = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-xl font-semibold">Turmas</h2>
-            <ul className="space-y-2 mt-4">
-              <li className="text-sm">Turma 1 - Daniel Huckman</li>
-              <li className="text-sm">Turma 1 - Daniel Huckman</li>
-              <li className="text-sm">Turma 1 - Daniel Huckman</li>
+            <div className="flex flex-row items-center gap-2">
+              <div className="bg-white h-6 w-6 flex justify-center items-center rounded-[10px]">
+                <AiOutlineTeam className="text-[#564E9B]"/>
+              </div>
+              <h2 className="text-[16px] font-semibold">Turmas</h2>
+            </div>
+            <ul className="space-y-4 mt-4">
+              <li className="text-[12px]">Turma 1 - Daniel Huckman</li>
+              <li className="text-[12px]">Turma 1 - Daniel Huckman</li>
+              <li className="text-[12px]">Turma 1 - Daniel Huckman</li>
             </ul>
           </motion.div>
 
