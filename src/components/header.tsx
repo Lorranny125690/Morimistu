@@ -54,7 +54,7 @@ export function Header({
 
   // Função para lidar com o clique no botão "Sair"
   const handleLogout = () => {
-    // Aqui você pode limpar o estado de autenticação ou fazer o que for necessário
+    // limpar o estado de autenticação ou fazer o que for necessário
     navigate("/"); // Redireciona para a página inicial
   };
 

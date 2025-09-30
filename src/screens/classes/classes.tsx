@@ -7,7 +7,7 @@ import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 export function Classes() {
   return (
-    <div className="min-h-screen bg-[#0D0C15] text-white font-sans">
+    <div className="min-h-screen bg-[#0D0C15] mb-40 text-white font-sans">
       {/* Conteúdo */}
       <div className="flex flex-col max-w-6xl mx-auto px-6 mt-4">
         {/* Título + botões */}

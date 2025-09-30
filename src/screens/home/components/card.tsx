@@ -12,7 +12,7 @@ export function Cards() {
 
       <div className="grid md:grid-cols-3 gap-12">
         {cards.map((card, i) => (
-          <a href="/student"><motion.div
+          <a href={card.href}><motion.div
             key={i}
             className="hover:cursor-pointer flex items-center justify-center flex-col h-[300px] w-[286px] bg-[#CCC8F3] p-6 text-center 
                       shadow-[-8px_8px_0px_#6b61bd] hover:scale-110 hover:shadow-[-12px_12px_0px_#4c3fa1] transition-all duration-300"

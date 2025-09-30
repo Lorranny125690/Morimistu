@@ -5,7 +5,7 @@ export const cards = [
   {
     icon: <FiBookOpen className="mb-3 h-10 w-10 text-[#453E7D]" />,
     title: "Gerenciar graduações",
-    href: "/student"
+    href: "/notification"
   },
   {
     icon: <FiEdit3 className="mb-3 h-10 w-10 text-[#453E7D]" />,
