@@ -88,13 +88,12 @@ export function Championship() {
         {cards.map((card, i) => (
           <motion.div
             key={i}
-            className={`hover:cursor-pointer flex items-start justify-center flex-col h-[72px] w-[184px] p-2 text-center rounded-lg shadow-md`}
+            className={`hover:cursor-pointer hover:scale-110 transition-all flex items-start justify-center flex-col h-[72px] w-[184px] p-2 text-center rounded-lg shadow-md`}
             style={{ background: card.bg, color: card.text }}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            whileHover={{ scale: 1.05 }}
           >
             <div className="h-5 flex justify-between items-center mt-2 w-full">
               <p className="text-[16px] font-medium">{card.title}</p>
@@ -114,7 +113,7 @@ export function Championship() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
         className="flex max-w-6xl mx-auto mt-6"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[64px] w-full">
