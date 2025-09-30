@@ -89,13 +89,15 @@ export function Student() {
                     </div>
                   </td>
                   <td className="py-3 px-4 text-center">
-                    <motion.button
+                    <a href="/student_profile">
+                      <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="hover:cursor-pointer px-4 py-1 bg-[#0070F3] hover:bg-blue-700 rounded-md text-white text-sm font-medium transition"
-                    >
-                      Ver
-                    </motion.button>
+                      >
+                        Ver
+                      </motion.button>
+                    </a>
                   </td>
                 </motion.tr>
               ))}
