@@ -12,13 +12,13 @@ import { StudentScreen } from "@/screens/student/screens/add";
 import { Notification } from "@/screens/student/screens/notification";
 import { Classes } from "@/screens/classes/classes";
 import { Championship } from "@/screens/championship/champion";
-import { StudentProfile } from "@/screens/student/screens/profile";
+import { AddClass } from "@/screens/classes/add";
 
 function AppContent() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const noHeaderRoutes = ["/", "/login", "/change-password", "/add_student", "/student_profile"];
+  const noHeaderRoutes = ["/", "/login", "/change-password", "/add_student", "/student_profile", "/add_classes"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   return (
@@ -39,7 +39,7 @@ function AppContent() {
           <Route path="/notification" element={<Notification />} />
           <Route path="/classes" element={<Classes />} />
           <Route path="/championship" element={<Championship/>}/>
-          <Route path="/student_profile" element={<StudentProfile/>}/>
+          <Route path="/add_classes" element={<AddClass/>}/>
         </Routes>
       </main>
 

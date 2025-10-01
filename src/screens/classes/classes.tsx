@@ -36,13 +36,15 @@ export function Classes() {
             <div className="flex hover:scale-110 transition items-center justify-center h-[50px] w-[50px] bg-[#323D4E] rounded-full hover:bg-[#3f4c63] cursor-pointer">
               <FaSearch size={20} />
             </div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="cursor-pointer flex justify-center flex-row text-[15px] items-center h-10 w-[177px] gap-2 py-2 bg-[#076185] hover:bg-blue-700 rounded-[10px] font-medium transition"
-            >
-              Adicionar turma <IoMdAdd size={20} />
-            </motion.button>
+            <a href="/add_classes">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="cursor-pointer flex justify-center flex-row text-[15px] items-center h-10 w-[177px] gap-2 py-2 bg-[#076185] hover:bg-blue-700 rounded-[10px] font-medium transition"
+              >
+                Adicionar turma <IoMdAdd size={20} />
+              </motion.button>
+            </a>
           </div>
         </div>
       </div>
