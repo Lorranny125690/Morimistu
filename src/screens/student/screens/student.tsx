@@ -3,13 +3,30 @@ import { motion } from "framer-motion";
 import { studentsMock } from "../components/studentMosck";
 import { beltClasses } from "../components/beltclasses";
 import { Choice } from "../components/choose";
+import { useState } from "react"; // Adicionado para gerenciar o estado do modal
+import { StudentProfile } from "./profile";
 
 export function Student() {
+  const [isModalOpen, setIsModalOpen] = useState(false); // Controle do modal
+  const [selectedStudent, setSelectedStudent] = useState<any>(null); // Armazena o aluno selecionado
+
+  // Função para abrir o modal e mostrar o perfil do aluno
+  const openProfileModal = (student: any) => {
+    setSelectedStudent(student);
+    setIsModalOpen(true);
+  };
+
+  // Função para fechar o modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedStudent(null); // Limpar o aluno selecionado
+  };
+
   return (
     <div className="min-h-screen bg-[#0D0C15] text-white font-sans">
       {/* Tabs */}
       <Choice />
-      
+
       {/* Conteúdo */}
       <div className="max-w-6xl mx-auto px-6 mt-8">
         {/* Título + botões */}
@@ -89,15 +106,14 @@ export function Student() {
                     </div>
                   </td>
                   <td className="py-3 px-4 text-center">
-                    <a href="/student_profile">
-                      <motion.button
+                    <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="hover:cursor-pointer px-4 py-1 bg-[#0070F3] hover:bg-blue-700 rounded-md text-white text-sm font-medium transition"
-                      >
-                        Ver
-                      </motion.button>
-                    </a>
+                      onClick={() => openProfileModal(student)} // Abre o modal com o perfil do aluno
+                    >
+                      Ver
+                    </motion.button>
                   </td>
                 </motion.tr>
               ))}
@@ -105,6 +121,9 @@ export function Student() {
           </table>
         </motion.div>
       </div>
+
+      {/* Modal de Perfil */}
+      {isModalOpen && <StudentProfile closeModal={closeModal} />}
     </div>
   );
 }

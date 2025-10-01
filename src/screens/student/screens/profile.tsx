@@ -1,33 +1,35 @@
 import { IoIosExit } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { AiOutlineTeam } from "react-icons/ai";
 
-export const StudentProfile = () => {
-  const navigate = useNavigate();
+interface StudentProfileProps {
+  closeModal: () => void;  // Função para fechar o modal
+}
 
+export const StudentProfile = ({ closeModal }: StudentProfileProps) => {
   return (
-    <div className="flex items-center justify-center flex-col min-h-screen bg-[#9D9CC6] p-6">
+    <div className="fixed inset-0 bg-[#000F22]/60 flex items-center justify-center p-6 z-50" onClick={closeModal}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
         className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg"
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <motion.div
-          className="flex h-60 flex-col bg-[#564E9B] rounded-t-lg p-6"
+          className="flex h-60 flex-col bg-[#7C9FC9] p-6"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex justify-between items-center">
+          <div className="flex h-0.5 justify-between items-center">
             <IoIosExit
               className="hover:scale-110 cursor-pointer transition-all hover:cursor-pointer"
-              onClick={() => navigate(-1)}
+              onClick={closeModal}  // Fechar ao clicar no "X"
               size={30}
             />
-            <button className="hover:scale-110 cursor-pointer transition-all bg-white text-[#564E9B] font-medium py-3 flex text-[12px] w-[153px] h-9 justify-center items-center rounded-full">
+            <button className="hover:scale-110 cursor-pointer transition-all bg-white text-[#7C9FC9] font-medium py-3 flex text-[12px] w-[153px] h-9 justify-center items-center rounded-full">
               Promover a professor
             </button>
           </div>
@@ -40,9 +42,9 @@ export const StudentProfile = () => {
               transition={{ duration: 0.8 }}
             >
               <img
-                src="https://i.pinimg.com/736x/4e/cc/bb/4eccbb1c77b903b7257770e0ecd76d1d.jpg"
+                src="https://i.pinimg.com/736x/a5/cb/1a/a5cb1a5651d178a1bde6c41e391dacd2.jpg"
                 alt="Perfil"
-                className="h-32 w-32 rounded-full hover:scale-110 transition-all cursor-pointer"
+                className="h-50 w-50 items-center justify-center flex rounded-full hover:scale-110 transition-all cursor-pointer"
               />
               <div className="flex items-center flex-col">
                 <h1 className="text-[50px] h-15 font-bold text-white">Garu</h1>
@@ -53,17 +55,18 @@ export const StudentProfile = () => {
           </div>
         </motion.div>
 
+        {/* Restante do conteúdo */}
         <div className="grid flex flex-row justify-center items-center grid-cols-1 md:grid-cols-3 gap-6 p-6 mb-8">
           {/* Turmas Section */}
           <motion.div
-            className="hover:scale-110 cursor-pointer transition-all flex flex-col justify-center items-center bg-[#564E9B] text-white rounded-lg p-4"
+            className="hover:scale-110 cursor-pointer transition-all flex flex-col justify-center items-center bg-[#7C9FC9] text-white rounded-lg p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
             <div className="flex flex-row items-center gap-2">
               <div className="bg-white h-6 w-6 flex justify-center items-center rounded-[10px]">
-                <AiOutlineTeam className="text-[#564E9B]"/>
+                <AiOutlineTeam className="text-[#7C9FC9]"/>
               </div>
               <h2 className="text-[16px] font-semibold">Turmas</h2>
             </div>
@@ -76,14 +79,14 @@ export const StudentProfile = () => {
 
           {/* Frequências Section */}
           <motion.div
-            className="hover:scale-110 cursor-pointer transition-all flex flex-col h-[88px] w-[208px] bg-[#564E9B] items-start rounded-lg p-2 px-4 shadow-md"
+            className="hover:scale-110 cursor-pointer transition-all flex flex-col h-[88px] w-[208px] bg-[#7C9FC9] items-start rounded-lg p-2 px-4 shadow-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="flex flex-row h-6 gap-4">
               <h2 className="text-[16px] font-semibold text-white">Frequências</h2>
-              <button className="hover:scale-110 cursor-pointer transition-all bg-gray-500 h-6 w-[76px] font-medium justify-center items-center flex bg-white text-[#564E9B] py-2 px-4 rounded-lg">
+              <button className="hover:scale-110 cursor-pointer transition-all bg-gray-500 h-6 w-[76px] font-medium justify-center items-center flex bg-white text-[#7C9FC9] py-2 px-4 rounded-lg">
                 Graduar
               </button>
             </div>
@@ -92,7 +95,7 @@ export const StudentProfile = () => {
 
           {/* Equipes Section */}
           <motion.div
-            className="hover:scale-110 cursor-pointer transition-all flex flex-col h-[88px] w-[208px] bg-[#564E9B] items-start rounded-lg p-2 px-4 shadow-md"
+            className="hover:scale-110 cursor-pointer transition-all flex flex-col h-[88px] w-[208px] bg-[#7C9FC9] items-start rounded-lg p-2 px-4 shadow-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -105,7 +108,7 @@ export const StudentProfile = () => {
         </div>
 
         <motion.h2
-          className="px-6 text-xl font-semibold text-[#564E9B] mb-4"
+          className="px-6 text-[30px] font-medium text-[#7C9FC9] mb-"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -115,7 +118,7 @@ export const StudentProfile = () => {
 
         {/* Informações Section */}
         <motion.div
-          className="hover:scale-110 cursor-pointer transition-all grid flex text-[#564E9B] bg-[#CCC8F3] ml-5 mr-5 rounded-flex-row justify-center grid-cols-1 md:grid-cols-3 gap-6 p-6 mb-8 shadow-xl/20"
+          className="hover:scale-110 cursor-pointer transition-all grid flex text-[#5482B3] bg-[#C2E8FF] ml-5 mr-5 rounded-flex-row justify-center grid-cols-1 md:grid-cols-3 gap-6 p-6 mb-8 shadow-xl/20"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
