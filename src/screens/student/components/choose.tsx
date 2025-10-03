@@ -10,13 +10,13 @@ export function Choice() {
   const location = useLocation();
 
   return (
-    <div className="border-b border-gray-700">
+    <div className="lg:border-b lg:border-gray-700">
       <div className="max-w-6xl mx-auto flex items-center px-6">
         {navLinks.map((link) => (
           <a
             key={link.name}
             href={link.href}
-            className={`"hover:bg-slate-600 hover:rounded-sm text-[20px] hover:cursor-pointer transition py-6 px-4 font-medium ${
+            className={`"hover:bg-slate-600 hover:rounded-sm text-[12px] lg:text-[20px] hover:cursor-pointer transition py-3 lg:py-6 px-4 font-medium ${
               location.pathname === link.href
                 ? "border-b-2 border-blue-500 text-blue-500"
                 : "text-gray-300 hover:text-gray-100"
@@ -26,7 +26,9 @@ export function Choice() {
             {link.name}
           </a>
         ))}
-        <div className="ml-auto relative">
+        
+        {/* Campo de pesquisa visível apenas em telas lg */}
+        <div className="lg:ml-auto relative hidden lg:block">
           <CiSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
             type="text"

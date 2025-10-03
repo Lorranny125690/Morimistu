@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Home } from "@/screens/home/home";
-import { Student } from "@/screens/student/screens/student";
 import { Login } from "@/screens/auth/login";
 import { SelectLogin } from "@/screens/auth/userType";
 import { ChangePassword } from "@/teste";
@@ -13,6 +12,7 @@ import { Notification } from "@/screens/student/screens/notification";
 import { Classes } from "@/screens/classes/classes";
 import { Championship } from "@/screens/championship/champion";
 import { AddClass } from "@/screens/classes/add";
+import { Student } from "@/screens/student";
 
 function AppContent() {
   const location = useLocation();

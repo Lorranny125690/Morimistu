@@ -6,7 +6,7 @@ import { Choice } from "../components/choose";
 import { useState } from "react"; // Adicionado para gerenciar o estado do modal
 import { StudentProfile } from "./profile";
 
-export function Student() {
+export function StudentDesktop() {
   const [isModalOpen, setIsModalOpen] = useState(false); // Controle do modal
   const [selectedStudent, setSelectedStudent] = useState<any>(null); // Armazena o aluno selecionado
 
