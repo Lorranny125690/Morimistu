@@ -59,7 +59,7 @@ export function Header({
   };
 
   return (
-    <header className="z-50 text-white bg-[#0D0C15] relative">
+    <header className="z-50 text-white hidden lg:block bg-[#0D0C15] relative">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <div className="flex items-center gap-3">

@@ -3,17 +3,17 @@ import { FiBookOpen, FiEdit3 } from "react-icons/fi";
 
 export const cards = [
   {
-    icon: <FiBookOpen className="mb-3 h-10 w-10 text-[#453E7D]" />,
+    icon: <FiBookOpen className="mb-3 lg:h-10 lg:w-10 h-5 w-5 text-[#453E7D]" />,
     title: "Gerenciar graduações",
     href: "/notification"
   },
   {
-    icon: <FiEdit3 className="mb-3 h-10 w-10 text-[#453E7D]" />,
+    icon: <FiEdit3 className="mb-3 lg:h-10 lg:w-10 h-5 w-5 text-[#453E7D]" />,
     title: "Consultar frequência",
     href: "/student"
   },
   {
-    icon: <FaBirthdayCake className="mb-3 h-10 w-10 text-[#453E7D]" />,
+    icon: <FaBirthdayCake className="mb-3 lg:h-10 lg:w-10 h-5 w-5 text-[#453E7D]" />,
     title: "Aniversariante do mês",
     href: "/student"
   },

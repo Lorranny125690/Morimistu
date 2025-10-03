@@ -3,7 +3,7 @@ import { MdOutlineEmail } from "react-icons/md";
 
 export function Footer() {
   return (
-    <footer className="py-6">
+    <footer className="hidden lg:block py-6">
       <div className="max-w-7xl h-20 mx-auto flex flex-col md:flex-row justify-between items-center px-6 text-sm text-white">
         <div className="flex gap-4 items-center text-lg mb-4 md:mb-0 justify-center md:justify-start">
           <FaFacebook className="h-7 w-7 cursor-pointer hover:text-gray-400 transition" />

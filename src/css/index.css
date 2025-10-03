@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@200;300;400;500;600;700&display=swap');
+
+.font-slab {
+  font-family: 'Josefin Slab', serif;
+}
 
 #text {
   font-family: "JetBrains Mono", monospace;
@@ -9,7 +14,7 @@
 }
 
 #text-3 {
-  font-family: "Josefin Slab", serif;
+  font-family: "Josefin Slab", Tofu;
 }
 
 #poppins {
