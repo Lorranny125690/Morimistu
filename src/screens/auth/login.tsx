@@ -13,7 +13,7 @@ type FieldProps = {
 };
 
 const Field = ({ icon, label, type = "text" }: FieldProps) => (
-  <div className="flex w-69 border border-[#C54848]">
+  <div className="flex w-full lg:w-[300px] border border-[#C54848]">
     <div className="flex items-center justify-center w-12 bg-[#222121] border-r border-[#C54848]">
       {icon}
     </div>
@@ -42,7 +42,7 @@ export function Login() {
 
   return (
     <div
-      className="z-1000 relative min-h-screen min-w-screen flex items-center justify-center bg-cover bg-center"
+      className="z-1000 relative min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="absolute inset-0 bg-[#1D1010]/70" />
@@ -52,10 +52,10 @@ export function Login() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 flex bg-[#383333] overflow-hidden shadow-xl w-[980px] h-[600px] rounded-xl"
+        className="relative z-10 flex bg-[#383333] overflow-hidden shadow-xl w-[350px] lg:w-[980px] h-[600px]"
       >
         {/* esquerda: formulário */}
-        <div className="flex flex-col justify-center items-center w-1/2 px-20 text-white">
+        <div className="flex flex-col justify-center items-center w-full lg:w-1/2 px-6 lg:px-20 text-white">
           <motion.img
             src={image}
             alt="logo"
@@ -66,7 +66,7 @@ export function Login() {
           />
           <h2 className="text-4xl font-bold mb-8">Entrar</h2>
 
-          <div className="mt-4 w-full flex items-center flex-col space-y-6">
+          <div className="mt-4 w-full flex items-center justify-center flex-col space-y-6">
             <Field icon={<FaUser className="text-white" />} label="Nome de usuário" />
             <Field icon={<FaLock className="text-white" />} label="Senha" type="password" />
           </div>
@@ -99,7 +99,7 @@ export function Login() {
         </div>
 
         {/* direita: imagem */}
-        <div className="w-1/2">
+        <div className="hidden lg:block w-1/2">
           <img src={sideImage} alt="login" className="w-full h-full object-cover" />
         </div>
       </motion.div>

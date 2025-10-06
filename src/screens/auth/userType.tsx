@@ -9,7 +9,7 @@ const Card = ({ children }: { children: React.ReactNode }) => (
     initial={{ opacity: 0, y: 40 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.7, ease: "easeOut" }}
-    className="flex flex-col bg-[#383333] w-105 h-137 p-8 items-center justify-center shadow-lg text-center relative z-10 rounded-xl"
+    className="flex flex-col bg-[#383333] lg:w-105 h-137 p-8 items-center justify-center shadow-lg text-center relative z-10"
   >
     {children}
   </motion.div>
@@ -52,7 +52,7 @@ export function SelectLogin() {
             className="h-10 w-69 flex items-center border border-[#C54848] bg-[#222121] text-[#C54848] hover:border-[#535bf2] hover:bg-[#201E1E] hover:cursor-pointer hover:text-white transition"
             onClick={() => navigate("/login")}
           >
-            <div className="flex items-center justify-center w-12 h-10 border-r border-[#C54848] hover:bg-red-600 hover:text-white transition">
+            <div className="flex items-center justify-center w-12 h-10 border-r border-[#C54848] hover:text-white transition">
               <FaUserShield className="text-white" />
             </div>
             <span className="flex-1 text-start px-2 font-serif text-lg">
@@ -67,7 +67,7 @@ export function SelectLogin() {
             className="flex items-center border border-[#C54848] bg-[#222121] text-[#C54848] hover:border-[#535bf2] hover:bg-[#201E1E] hover:cursor-pointer hover:text-white transition"
             onClick={() => navigate("/login-image")}
           >
-            <div className="flex items-center justify-center w-12 h-10 border-r border-[#C54848] hover:bg-red-600 hover:text-white transition">
+            <div className="flex items-center justify-center w-12 h-10 border-r border-[#C54848] hover:text-white transition">
               <FaChalkboardTeacher className="text-white" />
             </div>
             <span className="flex-1 text-start px-2 font-serif text-lg">
