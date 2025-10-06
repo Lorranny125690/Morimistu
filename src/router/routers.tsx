@@ -3,9 +3,8 @@ import { Home } from "@/screens/home/home";
 import { Login } from "@/screens/auth/login";
 import { SelectLogin } from "@/screens/auth/userType";
 import { ChangePassword } from "@/teste";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer"; // importa o footer
-import { useState } from "react";
+import { HeaderExport } from "@/components/index";
+import { Footer } from "@/components/footer";
 import { Dashboard } from "@/screens/dashboard/dashboard";
 import { StudentScreen } from "@/screens/student/screens/add";
 import { Notification } from "@/screens/student/screens/notification";
@@ -16,7 +15,6 @@ import { Student } from "@/screens/student";
 
 function AppContent() {
   const location = useLocation();
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const noHeaderRoutes = ["/", "/login", "/change-password", "/add_student", "/student_profile", "/add_classes"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
@@ -24,7 +22,7 @@ function AppContent() {
   return (
     <div className="flex flex-col min-h-screen bg-[#0D0C15] text-white">
       {/* Header condicional */}
-      {showHeader && <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />}
+      {showHeader && <HeaderExport/>}
 
       {/* Conteúdo principal que cresce */}
       <main className="flex-grow">

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import logo from "../assets/logo.svg";
-import { FaBars, FaTimes, FaRegUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -12,13 +12,7 @@ const navLinks = [
   { name: "Estatísticas", href: ["/dashboard"], activeClass: "text-pink-400 border-b" },
 ];
 
-export function Header({
-  menuOpen,
-  setMenuOpen,
-}: {
-  menuOpen: boolean;
-  setMenuOpen: (v: boolean) => void;
-}) {
+export function Header() {
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
@@ -74,18 +68,11 @@ export function Header({
 
         {/* Botões */}
         <div className="flex items-center gap-3 relative" ref={profileRef}>
-          {/* Menu mobile toggle */}
-          <button
-            className="md:hidden p-2 rounded-full border border-gray-600"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
 
           {/* Usuário */}
           <button
             onClick={() => setProfileOpen((prev) => !prev)}
-            className="hidden md:flex p-2 rounded-full border border-gray-600 hover:bg-gray-700 transition"
+            className="cursor-pointer hidden md:flex p-2 rounded-full border border-gray-600 hover:bg-gray-700 transition"
           >
             <FaRegUser />
           </button>
@@ -123,13 +110,6 @@ export function Header({
           </AnimatePresence>
         </div>
       </div>
-
-      {/* Dropdown mobile */}
-      {menuOpen && (
-        <div className="absolute top-full left-0 w-full bg-[#0D0C15] border-t border-gray-800 flex flex-col items-center py-4 space-y-4 md:hidden">
-          {renderLinks(true)}
-        </div>
-      )}
     </header>
   );
 }
