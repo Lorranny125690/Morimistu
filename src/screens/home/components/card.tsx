@@ -1,6 +1,14 @@
 import { motion } from "framer-motion";
 import { cards } from "./cards";
 
+const scrollToSection = (id: string) => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
+
 export function Cards() {
   return (
     <section id="cards" className="flex flex-col items-center py-12 bg-[#0D0C15] mt-10 mb-20">
@@ -25,7 +33,7 @@ export function Cards() {
 
       <div className="grid md:grid-cols-3 gap-12 z-10">
         {cards.map((card, i) => (
-          <a href={card.href}><motion.div
+          <motion.div
             key={i}
             className="hover:cursor-pointer flex items-center justify-center flex-col h-[300px] w-[286px] bg-[#CCC8F3] p-6 text-center 
                       shadow-[-8px_8px_0px_#6b61bd] hover:scale-110 hover:shadow-[-12px_12px_0px_#4c3fa1] transition-all duration-300"
@@ -33,10 +41,11 @@ export function Cards() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+            onClick={() => scrollToSection(card.targetId)}
           >
             {card.icon}
             <p className="text-[#453E7D] text-[30px] font-[200]">{card.title}</p>
-          </motion.div></a>
+          </motion.div>
         ))}
       </div>
     </section>

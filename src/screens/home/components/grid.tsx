@@ -2,13 +2,15 @@ import { motion } from "framer-motion";
 import { turmasRecentes, alunosGraduar, alunosAniversariando } from "./list";
 
 interface ListaCarrosselProps {
+  id?: string;
   titulo: string;
   itens: { id: number; nome: string; imagem: string }[];
 }
 
-function ScreenCard({ titulo, itens }: ListaCarrosselProps) {
+
+function ScreenCard({ id, titulo, itens }: ListaCarrosselProps) {
   return (
-    <section className="flex flex-col items-center bg-[#0D0C15] py-16">
+    <section id={id} className="flex flex-col items-center bg-[#0D0C15] py-16">
       <h2 className="w-full max-w-7xl text-3xl font-semibold mb-8 text-white text-start">
         {titulo}
       </h2>
@@ -54,13 +56,13 @@ function ScreenCard({ titulo, itens }: ListaCarrosselProps) {
 }
 
 export const TurmasRecentes = () => (
-  <ScreenCard titulo="Turmas Recentes" itens={turmasRecentes} />
+  <ScreenCard id="turmas" titulo="Turmas Recentes" itens={turmasRecentes} />
 );
 
 export const AlunosAptosGraduar = () => (
-  <ScreenCard titulo="Alunos Aptos a Graduar" itens={alunosGraduar} />
+  <ScreenCard id="graduacoes" titulo="Alunos Aptos a Graduar" itens={alunosGraduar} />
 );
 
 export const AlunosAniversariando = () => (
-  <ScreenCard titulo="Aniversariantes do Mês" itens={alunosAniversariando} />
+  <ScreenCard id="aniversariantes" titulo="Aniversariantes do Mês" itens={alunosAniversariando} />
 );
