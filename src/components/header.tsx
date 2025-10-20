@@ -8,8 +8,8 @@ const navLinks = [
   { name: "Início", href: ["/home"], activeClass: "text-green-400 border-b" },
   { name: "Alunos", href: ["/student", "/notification"], activeClass: "text-violet-400 border-b" },
   { name: "Turmas", href: ["/classes"], activeClass: "text-red-400 border-b" },
-  { name: "Campeonatos", href: ["/championship"], activeClass: "text-yellow-400 border-b" },
   { name: "Estatísticas", href: ["/dashboard"], activeClass: "text-pink-400 border-b" },
+  { name: "Ajuda", href: ["/dashboard"], activeClass: "text-yellow-400 border-b" },
 ];
 
 export function Header() {

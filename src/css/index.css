@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@200;300;400;500;600;700&display=swap');
 
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE e Edge */
+    scrollbar-width: none;    /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;            /* Chrome, Safari */
+  }
+}
+
 .font-slab {
   font-family: 'Josefin Slab', serif;
 }

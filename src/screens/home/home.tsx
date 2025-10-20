@@ -1,11 +1,10 @@
-import { Hero } from "./components/hero.tsx";
-import { QuoteBox } from "./components/quotebox.tsx";
 import { Cards } from "./components/card.tsx";
 import logo from "../../assets/logo.svg";
 import { cards } from "./components/cards.tsx";
 import { PiStudentFill } from "react-icons/pi";
 import { motion } from "framer-motion";
 import { HeaderMobile } from "@/components/headerMobile.tsx";
+import { AlunosAniversariando, AlunosAptosGraduar, TurmasRecentes } from "./components/grid.tsx";
 
 export function HomeMobile() {
 
@@ -80,10 +79,11 @@ export function Home() {
 
       {/* Desktop */}
       <div className="hidden lg:block">
-        <div className="min-h-screen bg-[#0D0C15] text-white font-serif">
-          <Hero />
-          <QuoteBox />
+        <div id="poppins" className="min-h-screen bg-[#0D0C15] text-white">
           <Cards />
+          <TurmasRecentes/>
+          <AlunosAptosGraduar/>
+          <AlunosAniversariando/>
         </div>
       </div>
     </div>

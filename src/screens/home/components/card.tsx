@@ -3,14 +3,27 @@ import { cards } from "./cards";
 
 export function Cards() {
   return (
-    <section id="cards" className="min-h-screen flex flex-col justify-center items-center py-12 bg-[#0D0C15]">
+    <section id="cards" className="flex flex-col items-center py-12 bg-[#0D0C15] mt-10 mb-20">
+      <div className="absolute inset-0 pointer-events-none">
+        <svg
+          className="w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+        >
+          <path
+            fill="#20164a"
+            d="M0,192L60,176C120,160,240,128,360,106.7C480,85,600,75,720,90.7C840,107,960,149,1080,160C1200,171,1320,149,1380,138.7L1440,128L1440,0L0,0Z"
+          />
+        </svg>
+      </div>
       <motion.h2
-        className="text-center text-4xl font-serif mb-20"
+        className="text-center text-4xl font-serif mb-10 z-10"
       >
         Escolha sua jornada
       </motion.h2>
 
-      <div className="grid md:grid-cols-3 gap-12">
+      <div className="grid md:grid-cols-3 gap-12 z-10">
         {cards.map((card, i) => (
           <a href={card.href}><motion.div
             key={i}
