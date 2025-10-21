@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { Home } from "@/screens/home/home";
 import { Login } from "@/screens/auth/login";
 import { SelectLogin } from "@/screens/auth/userType";
-import { ChangePassword } from "@/teste";
 import { HeaderExport } from "@/components/index";
 import { Footer } from "@/components/footer";
 import { Dashboard } from "@/screens/dashboard/dashboard";
@@ -12,11 +11,14 @@ import { Classes } from "@/screens/classes/classes";
 import { Championship } from "@/screens/championship/champion";
 import { AddClass } from "@/screens/classes/add";
 import { Student } from "@/screens/student";
+import { Password } from "@/screens/auth/changePassword";
+import { Code } from "@/screens/auth/code";
+import { Email } from "@/screens/auth/emailVerification";
 
 function AppContent() {
   const location = useLocation();
 
-  const noHeaderRoutes = ["/", "/login", "/change-password", "/add_student", "/student_profile", "/add_classes"];
+  const noHeaderRoutes = ["/", "/login", "/change-password", "/add_student", "/student_profile", "/add_classes", "/password", "/code", "/email"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   return (
@@ -29,7 +31,6 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<SelectLogin />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/home" element={<Home />} />
           <Route path="/student" element={<Student />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -38,6 +39,9 @@ function AppContent() {
           <Route path="/classes" element={<Classes />} />
           <Route path="/championship" element={<Championship/>}/>
           <Route path="/add_classes" element={<AddClass/>}/>
+          <Route path="/password" element={<Password/>}/>
+          <Route path="/code" element={<Code/>}/>
+          <Route path="/email" element={<Email/>}/>
         </Routes>
       </main>
 

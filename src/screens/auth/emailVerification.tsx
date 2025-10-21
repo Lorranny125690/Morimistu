@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser, FaLock } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { FaUser } from "react-icons/fa";
+import { motion } from "framer-motion";
 import image from "../../assets/logo.png";
 import sideImage from "../../assets/image.png";
 import bgImage from "../../assets/image1.png";
@@ -29,15 +28,11 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
   </div>
 );
 
-export function Login() {
+export function Email() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
-    setLoading(true);
-    setTimeout(() => {
-      navigate("/home");
-    }, 2000);
+    navigate("/code");
   };
 
   return (
@@ -64,19 +59,12 @@ export function Login() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 120, delay: 0.2 }}
           />
-          <h2 className="text-4xl font-bold mb-8">Entrar</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center">Coloque
+          seu Email</h2>
 
-          <div className="mt-4 w-full flex items-center justify-center flex-col space-y-6">
-            <Field icon={<FaUser className="text-white" />} label="Nome de usuário" />
-            <Field icon={<FaLock className="text-white" />} label="Senha" type="password" />
+          <div className="mb-8 mt-4 w-full flex items-center justify-center flex-col space-y-6">
+            <Field icon={<FaUser className="text-white" />} label="Email" type="email" />
           </div>
-
-          <a
-            href="/email"
-            className="text-xs flex text-gray-300 self-start px-4 mt-3 mb-8 hover:text-[#C54848] transition"
-          >
-            Esqueceu a senha?
-          </a>
 
           {/* botão login com animação */}
           <motion.button
@@ -84,18 +72,9 @@ export function Login() {
             whileHover={{ scale: 1.05 }}
             className="mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white font-serif text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
             onClick={handleLogin}
-            disabled={loading}
           >
-            {loading ? "Carregando..." : "Entrar"}
+            Entrar
           </motion.button>
-
-          <p className="text-lg text-gray-200 mt-6 font-serif text-center leading-tight">
-            Não tem uma conta?
-            <br />
-            <a href="#" className="text-[#C54848] hover:underline">
-              Enviar email a Administrador
-            </a>
-          </p>
         </div>
 
         {/* direita: imagem */}
@@ -103,24 +82,6 @@ export function Login() {
           <img src={sideImage} alt="login" className="w-full h-full object-cover" />
         </div>
       </motion.div>
-
-      {/* overlay de loading */}
-      <AnimatePresence>
-        {loading && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/60 flex items-center justify-center z-50"
-          >
-            <motion.div
-              className="rounded-full h-16 w-16 border-4 border-red-600 border-t-transparent"
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

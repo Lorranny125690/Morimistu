@@ -11,26 +11,7 @@ export function Classes() {
       {/* Conteúdo */}
       <div className="flex flex-col max-w-6xl mx-auto px-6 mt-4">
         {/* Título + botões */}
-        <div className="flex items-center justify-between mb-4">
-          {/* Tabs */}
-          <div className="flex flex-row gap-[64px]">
-            <h1 className="text-xl cursor-pointer text-[#0086C9] font-medium">
-              Normais
-            </h1>
-            <h1 className="text-xl cursor-pointer text-gray-400 hover:text-white">
-              Baby
-            </h1>
-            <h1 className="text-xl cursor-pointer text-gray-400 hover:text-white">
-              Feminina
-            </h1>
-            <h1 className="text-xl cursor-pointer text-gray-400 hover:text-white">
-              Masculina
-            </h1>
-            <h1 className="text-xl cursor-pointer text-gray-400 hover:text-white">
-              Kids
-            </h1>
-          </div>
-
+        <div className="flex items-center justify-end mb-4">
           {/* Search + Add button */}
           <div className="flex items-center justify-center gap-6">
             <div className="flex hover:scale-110 transition items-center justify-center h-[50px] w-[50px] bg-[#323D4E] rounded-full hover:bg-[#3f4c63] cursor-pointer">
