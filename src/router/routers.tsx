@@ -14,6 +14,7 @@ import { Student } from "@/screens/student";
 import { Password } from "@/screens/auth/changePassword";
 import { Code } from "@/screens/auth/code";
 import { Email } from "@/screens/auth/emailVerification";
+import { AuthProvider } from "@/context/authContext";
 
 function AppContent() {
   const location = useLocation();
@@ -54,7 +55,9 @@ function AppContent() {
 function Routers() {
   return (
     <Router>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   );
 }

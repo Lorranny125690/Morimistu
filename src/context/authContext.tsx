@@ -1,23 +1,22 @@
 import axios from "axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import type { ReactNode } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import type { ReactNode } from "react"; // ✅ obrigatório por causa do verbatimModuleSyntax
 
-// URL base 
+// URL base da sua API
 export const API_URL = "https://morimitsu-jiu-jitsu.onrender.com";
 
-// Cria uma instância do axios com baseURL
+// Cria instância do Axios
 const api = axios.create({
   baseURL: API_URL,
 });
 
-// Tipagem das props do contexto
+// Tipos do contexto
 interface AuthProps {
   authState: {
     token: string | null;
     authenticated: boolean | null;
   };
-  onRegister: (Email: string, Password: string, userName: string) => Promise<any>;
-  onLogin: (Email: string, Password: string) => Promise<any>;
+  onLogin: (email: string, password: string) => Promise<any>;
   onLogout: () => Promise<void>;
 }
 
@@ -28,16 +27,14 @@ interface AuthProviderProps {
 // Criação do contexto
 const AuthContext = createContext<AuthProps | undefined>(undefined);
 
-// Hook para acessar o contexto
-export const useAuth = () => {
+// Hook customizado
+export const useAuth = (): AuthProps => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
-  }
+  if (!context) throw new Error("useAuth deve ser usado dentro de um <AuthProvider>");
   return context;
 };
 
-// Provedor do contexto
+// Provider principal
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [authState, setAuthState] = useState<{
     token: string | null;
@@ -47,60 +44,31 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     authenticated: null,
   });
 
-  // Carregar token do localStorage
+  // Carregar token salvo
   useEffect(() => {
     const token = localStorage.getItem("my-jwt");
     if (token) {
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      setAuthState({
-        token,
-        authenticated: true,
-      });
+      setAuthState({ token, authenticated: true });
     } else {
-      setAuthState({
-        token: null,
-        authenticated: false,
-      });
+      setAuthState({ token: null, authenticated: false });
     }
   }, []);
 
-  // Registrar novo usuário
-  const register = async (Email: string, Password: string, userName: string) => {
+  // Função de login
+  const login = async (email: string, password: string) => {
     try {
-      const result = await api.post(`/user`, { Email, Password, userName });
-      const token = result.data.token;
-      const username = result.data.User;
-
+      const result = await api.post(`/auth/login`, { email, password });
+      const { token } = result.data;
+      
       if (token) {
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         localStorage.setItem("my-jwt", token);
-        localStorage.setItem("userName", username);
         setAuthState({ token, authenticated: true });
+        return { error: false };
       }
-
-      return result;
-    } catch (e: any) {
-      return {
-        error: true,
-        msg: e.response?.data?.msg || "Erro ao registrar",
-        status: e.response?.status,
-      };
-    }
-  };
-
-  // Login do usuário
-  const login = async (Email: string, Password: string) => {
-    try {
-      const result = await api.post(`/user/login`, { Email, Password });
-      const { userId } = result.data;
-
-      if (userId) {
-        api.defaults.headers.common["Authorization"] = `Bearer ${userId}`;
-        localStorage.setItem("my-jwt", userId);
-        setAuthState({ token: userId, authenticated: true });
-      }
-
-      return result;
+      
+      return { error: true, msg: "Usuário ou senha inválidos" };      
     } catch (e: any) {
       return {
         error: true,
@@ -109,7 +77,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  // Logout
+  // Função de logout
   const logout = async () => {
     localStorage.removeItem("my-jwt");
     localStorage.removeItem("userName");
@@ -117,10 +85,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setAuthState({ token: null, authenticated: false });
   };
 
-  // Valor exposto para toda a aplicação
+  // Valor exposto
   const value: AuthProps = {
     authState,
-    onRegister: register,
     onLogin: login,
     onLogout: logout,
   };

@@ -1,53 +1,101 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import image from "../../assets/logo.png";
-import sideImage from "../../assets/image.png";
-import bgImage from "../../assets/image1.png";
+import { useAuth } from "@/context/authContext";
+import image from "@/assets/logo.png";
+import sideImage from "@/assets/image.png";
+import bgImage from "@/assets/image1.png";
 
 type FieldProps = {
   icon: React.ReactNode;
   label: string;
   type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Field = ({ icon, label, type = "text" }: FieldProps) => (
-  <div className="flex w-full lg:w-[300px] border border-[#C54848]">
-    <div className="flex items-center justify-center w-12 bg-[#222121] border-r border-[#C54848]">
-      {icon}
-    </div>
-    <div className="flex-1 flex flex-col">
-      <div className="h-5 flex items-center px-1 bg-[#222121] border-b border-[#C54848]">
-        <span className="text-[10px] text-gray-200 font-serif">{label}</span>
+const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => {
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+
+  // alterna dinamicamente o tipo do input
+  const inputType = type === "password" && mostrarSenha ? "text" : type;
+
+  return (
+    <div className="flex w-full lg:w-[300px] border border-[#C54848] relative">
+      <div className="flex items-center justify-center w-12 bg-[#222121] border-r border-[#C54848]">
+        {icon}
       </div>
-      <input
-        type={type}
-        className="h-5 w-full bg-[#222121] px-1 text-[12px] text-white placeholder-gray-400 focus:outline-none"
-      />
+
+      <div className="flex-1 flex flex-col relative">
+        <div className="h-5 flex items-center px-1 bg-[#222121] border-b border-[#C54848]">
+          <span className="text-[10px] text-gray-200 font-serif">{label}</span>
+        </div>
+
+        <div className="relative flex items-center">
+          <input
+            type={inputType}
+            value={value}
+            onChange={onChange}
+            className="h-5 w-full bg-[#222121] px-1 text-[12px] text-white placeholder-gray-400 focus:outline-none pr-7"
+          />
+
+          {type === "password" && (
+            <button
+              type="button"
+              onClick={() => setMostrarSenha(!mostrarSenha)}
+              className="absolute right-1 text-gray-400 hover:text-white transition"
+            >
+              {mostrarSenha ? <FaEyeSlash size={10} /> : <FaEye size={10} />}
+            </button>
+          )}
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export function Login() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { onLogin } = useAuth();
 
-  const handleLogin = () => {
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState<string | null>(null);
+
+  const handleLogin = async () => {
+    if (!email || !senha) {
+      setErro("Preencha todos os campos!");
+      return;
+    }
+
+    setErro(null);
     setLoading(true);
-    setTimeout(() => {
-      navigate("/home");
-    }, 2000);
+
+    try {
+      const res = await onLogin!(email, senha);
+
+      if (res?.error) {
+        setErro(res.msg || "Erro ao fazer login");
+      } else {
+        navigate("/home");
+      }
+    } catch (e) {
+      setErro("Erro inesperado. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div
-      className="z-1000 relative min-h-screen flex items-center justify-center bg-cover bg-center"
+      className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="absolute inset-0 bg-[#1D1010]/70" />
 
-      {/* card com animação de entrada */}
+      {/* Card principal */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -67,9 +115,22 @@ export function Login() {
           <h2 className="text-4xl font-bold mb-8">Entrar</h2>
 
           <div className="mt-4 w-full flex items-center justify-center flex-col space-y-6">
-            <Field icon={<FaUser className="text-white" />} label="Nome de usuário" />
-            <Field icon={<FaLock className="text-white" />} label="Senha" type="password" />
+            <Field
+              icon={<FaUser className="text-white" />}
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Field
+              icon={<FaLock className="text-white" />}
+              label="Senha"
+              type="password"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
           </div>
+
+          {erro && <p className="text-red-400 text-sm mt-3">{erro}</p>}
 
           <a
             href="/email"
@@ -93,7 +154,7 @@ export function Login() {
             Não tem uma conta?
             <br />
             <a href="#" className="text-[#C54848] hover:underline">
-              Enviar email a Administrador
+              Enviar email ao Administrador
             </a>
           </p>
         </div>
