@@ -18,6 +18,10 @@ const Card = ({ children }: { children: React.ReactNode }) => (
 export function SelectLogin() {
   const navigate = useNavigate();
 
+  const handleNavigate = (type: "ADMIN" | "TEACHER") => {
+    navigate("/login", { state: { userType: type } });
+  };
+
   return (
     <div
       className="relative min-h-screen min-w-screen flex items-center justify-center text-white bg-cover bg-center"
@@ -50,7 +54,7 @@ export function SelectLogin() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className="h-10 w-69 flex items-center border border-[#C54848] bg-[#222121] text-[#C54848] hover:border-[#535bf2] hover:bg-[#201E1E] hover:cursor-pointer hover:text-white transition"
-            onClick={() => navigate("/login")}
+            onClick={() => handleNavigate("ADMIN")}
           >
             <div className="flex items-center justify-center w-12 h-10 border-r border-[#C54848] hover:text-white transition">
               <FaUserShield className="text-white" />
@@ -65,7 +69,7 @@ export function SelectLogin() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className="flex items-center border border-[#C54848] bg-[#222121] text-[#C54848] hover:border-[#535bf2] hover:bg-[#201E1E] hover:cursor-pointer hover:text-white transition"
-            onClick={() => navigate("/login-image")}
+            onClick={() => handleNavigate("TEACHER")}
           >
             <div className="flex items-center justify-center w-12 h-10 border-r border-[#C54848] hover:text-white transition">
               <FaChalkboardTeacher className="text-white" />

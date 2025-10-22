@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // 👈 adicionamos useLocation
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/context/authContext";
@@ -17,8 +17,6 @@ type FieldProps = {
 
 const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
-
-  // alterna dinamicamente o tipo do input
   const inputType = type === "password" && mostrarSenha ? "text" : type;
 
   return (
@@ -57,12 +55,16 @@ const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => {
 
 export function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { onLogin } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState<string | null>(null);
+
+  //acessa o tipo do usuário enviado pelo navigate (ADMIN ou TEACHER)
+  const userType = location.state?.userType || "Usuário";
 
   const handleLogin = async () => {
     if (!email || !senha) {
@@ -74,7 +76,7 @@ export function Login() {
     setLoading(true);
 
     try {
-      const res = await onLogin!(email, senha);
+      const res = await onLogin!(email, senha, userType);
 
       if (res?.error) {
         setErro(res.msg || "Erro ao fazer login");
@@ -112,7 +114,12 @@ export function Login() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 120, delay: 0.2 }}
           />
-          <h2 className="text-4xl font-bold mb-8">Entrar</h2>
+
+          {/* 👇 muda o texto conforme o tipo */}
+          <h2 className="text-4xl font-bold mb-2">Entrar</h2>
+          <p className="text-sm text-gray-300 mb-6 font-serif">
+            Login como <span className="text-[#C54848] font-semibold">{userType}</span>
+          </p>
 
           <div className="mt-4 w-full flex items-center justify-center flex-col space-y-6">
             <Field
@@ -139,7 +146,7 @@ export function Login() {
             Esqueceu a senha?
           </a>
 
-          {/* botão login com animação */}
+          {/* botão login */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}

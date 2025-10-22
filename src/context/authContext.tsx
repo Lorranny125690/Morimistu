@@ -16,7 +16,7 @@ interface AuthProps {
     token: string | null;
     authenticated: boolean | null;
   };
-  onLogin: (email: string, password: string) => Promise<any>;
+  onLogin: (email: string, password: string, role: string) => Promise<any>;
   onLogout: () => Promise<void>;
 }
 
@@ -56,9 +56,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   // Função de login
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, role: string) => {
     try {
-      const result = await api.post(`/auth/login`, { email, password });
+      const result = await api.post(`/auth/login`, { email, password, role });
+      console.log({ email, password, role });
       const { token } = result.data;
       
       if (token) {
