@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useAuth } from "@/context/authContext";
 import { Home } from "@/screens/home/home";
 import { Login } from "@/screens/auth/login";
 import { SelectLogin } from "@/screens/auth/userType";
@@ -18,35 +19,60 @@ import { AuthProvider } from "@/context/authContext";
 
 function AppContent() {
   const location = useLocation();
+  const { authState } = useAuth();
+  const token = authState?.token;
 
-  const noHeaderRoutes = ["/", "/login", "/change-password", "/add_student", "/student_profile", "/add_classes", "/password", "/code", "/email"];
+  // rotas públicas (sem header/footer)
+  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
+
+  // rotas que exigem token
+  const privateRoutes = [
+    "/home",
+    "/dashboard",
+    "/student",
+    "/notification",
+    "/classes",
+    "/championship",
+    "/add_student",
+    "/add_classes",
+  ];
+
+  // se for rota privada e não tiver token → login
+  if (privateRoutes.includes(location.pathname) && !token) {
+    return <Navigate to="/" replace />;
+  }
+
+  // se estiver logado e tentar ir pra login/seleção → home
+  if ((location.pathname === "/login" || location.pathname === "/") && token) {
+    return <Navigate to="/home" replace />;
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-[#0D0C15] text-white">
-      {/* Header condicional */}
-      {showHeader && <HeaderExport/>}
+      {showHeader && <HeaderExport />}
 
-      {/* Conteúdo principal que cresce */}
       <main className="flex-grow">
         <Routes>
+          {/* públicas */}
           <Route path="/" element={<SelectLogin />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/password" element={<Password />} />
+          <Route path="/code" element={<Code />} />
+          <Route path="/email" element={<Email />} />
+
+          {/* privadas */}
           <Route path="/home" element={<Home />} />
-          <Route path="/student" element={<Student />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add_student" element={<StudentScreen />} />
+          <Route path="/student" element={<Student />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/classes" element={<Classes />} />
-          <Route path="/championship" element={<Championship/>}/>
-          <Route path="/add_classes" element={<AddClass/>}/>
-          <Route path="/password" element={<Password/>}/>
-          <Route path="/code" element={<Code/>}/>
-          <Route path="/email" element={<Email/>}/>
+          <Route path="/championship" element={<Championship />} />
+          <Route path="/add_student" element={<StudentScreen />} />
+          <Route path="/add_classes" element={<AddClass />} />
         </Routes>
       </main>
 
-      {/* Footer só aparece nas rotas com header */}
       {showHeader && <Footer />}
     </div>
   );

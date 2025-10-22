@@ -3,6 +3,7 @@ import logo from "../assets/logo.svg";
 import { FaRegUser } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/authContext";
 
 const navLinks = [
   { name: "Início", href: ["/home"], activeClass: "text-green-400 border-b" },
@@ -16,7 +17,8 @@ export function Header() {
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const navigate = useNavigate(); // Para navegação programática
+  const navigate = useNavigate();
+  const { onLogout } = useAuth();
 
   // Fecha dropdown ao clicar fora
   useEffect(() => {
@@ -49,6 +51,7 @@ export function Header() {
   // Função para lidar com o clique no botão "Sair"
   const handleLogout = () => {
     // limpar o estado de autenticação ou fazer o que for necessário
+    onLogout();
     navigate("/"); // Redireciona para a página inicial
   };
 

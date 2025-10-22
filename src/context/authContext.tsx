@@ -61,6 +61,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const result = await api.post(`/auth/login`, { email, password, role });
       console.log({ email, password, role });
       const { token } = result.data;
+      console.log(token)
       
       if (token) {
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -80,11 +81,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // Função de logout
   const logout = async () => {
-    localStorage.removeItem("my-jwt");
-    localStorage.removeItem("userName");
-    delete api.defaults.headers.common["Authorization"];
-    setAuthState({ token: null, authenticated: false });
-  };
+    await localStorage.removeItem("my-jwt");
+
+    axios.defaults.headers.common['Authorization'] = ``;
+    
+    setAuthState({
+        token: null,
+        authenticated: false
+    })
+}
 
   // Valor exposto
   const value: AuthProps = {
