@@ -1,22 +1,22 @@
-import { FaBirthdayCake } from "react-icons/fa";
-import { FiBookOpen, FiEdit3 } from "react-icons/fi";
+import { FaBirthdayCake, FaPen } from "react-icons/fa";
+import { BiSolidGraduation } from "react-icons/bi";
 
 export const cards = [
   {
-    icon: <FiBookOpen className="mb-3 lg:h-10 lg:w-10 h-5 w-5 text-[#453E7D]" />,
+    icon: <BiSolidGraduation className="mb-3 lg:h-10 lg:w-10 h-5 w-5 text-[#453E7D]" />,
     title: "Gerenciar graduações",
     targetId: "graduacoes",
     href: "/notification"
   },
   {
-    icon: <FiEdit3 className="mb-3 lg:h-10 lg:w-10 h-5 w-5 text-[#453E7D]" />,
+    icon: <FaPen className="mb-3 lg:h-8 lg:w-8 h-5 w-5 text-[#453E7D]" />,
     title: "Consultar frequência",
     targetId: "turmas",
     href: "/student"
   },
   {
     icon: <FaBirthdayCake className="mb-3 lg:h-10 lg:w-10 h-5 w-5 text-[#453E7D]" />,
-    title: "Aniversariante do mês",
+    title: "Anivesariantes do mês",
     targetId: "aniversariantes",
     href: "/student"
   },

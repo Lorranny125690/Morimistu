@@ -90,16 +90,13 @@ export function Header() {
                 transition={{ duration: 0.2 }}
                 className="absolute top-12 right-0 w-48 bg-[#1E1E2F] border border-gray-700 rounded-lg shadow-lg flex flex-col overflow-hidden"
               >
-                {["Ver perfil", "Trocar senha"].map((item, i) => (
-                  <button
-                    key={i}
-                    className={`px-4 py-2 text-left transition hover:cursor-pointer hover:bg-[#29235F] ${
-                      item === "sair" ? "hover:bg-[#29235F]" : ""
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
+                <button className="px-4 py-2 text-left transition hover:cursor-pointer hover:bg-[#29235F]">
+                  Ver perfil
+                </button>
+
+                <button onClick={() => navigate("/email")}className="px-4 py-2 text-left transition hover:cursor-pointer hover:bg-[#29235F]">
+                  Trocar senha
+                </button>
 
                 {/* Botão "Sair" */}
                 <button

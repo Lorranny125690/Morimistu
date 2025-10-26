@@ -78,7 +78,8 @@ export function StudentDesktop() {
                 <motion.tr
                   key={student.id}
                   whileHover={{ backgroundColor: "#1E1E2F", scale: 1.01 }}
-                  className="border-b border-gray-800 transition"
+                  className="border-b border-gray-800 transition hover:cursor-pointer"
+                  onClick={() => openProfileModal(student)}
                 >
                   <td className="py-3 px-4">
                     <img
