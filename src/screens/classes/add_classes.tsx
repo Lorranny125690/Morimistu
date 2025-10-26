@@ -75,7 +75,7 @@ export function AddClass() {
                   <label className="block text-[10px] text-black">Professor</label>
                   <input
                     type="text"
-                    name="matricula"
+                    name="professor"
                     value={formData.professor}
                     onChange={handleChange}
                     className="w-50 h-5 text-[12px] text-black border-gray-300 border rounded-[2px] py-3 px-3 mt-[2px] focus:ring-2 focus:ring-blue-400 box-border shadow-md"
