@@ -15,7 +15,7 @@ interface AuthState {
 
 interface AuthProps {
   authState: AuthState;
-  authReady: boolean; // 👈 novo estado
+  authReady: boolean;
   onLogin: (email: string, password: string, role: string) => Promise<any>;
   onLogout: () => Promise<void>;
 }
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     authenticated: null,
   });
 
-  const [authReady, setAuthReady] = useState(false); // 👈 controla se o carregamento terminou
+  const [authReady, setAuthReady] = useState(false);
 
   // Carregar token salvo no primeiro render
   useEffect(() => {
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const value: AuthProps = {
     authState,
-    authReady, // 👈 exposto no contexto
+    authReady,
     onLogin: login,
     onLogout: logout,
   };

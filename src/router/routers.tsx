@@ -31,7 +31,6 @@ function AppContent() {
   const { authState, authReady } = useAuth();
   const token = authState?.token;
 
-  // Enquanto o token está sendo carregado
   if (!authReady) {
     return (
       <div className="flex items-center justify-center min-h-screen text-white text-lg">
@@ -40,7 +39,6 @@ function AppContent() {
     );
   }
 
-  // Rotas públicas (sem Header/Footer)
   const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
@@ -56,12 +54,10 @@ function AppContent() {
     "/add_classes",
   ];
 
-  // 🚫 Se não tiver token e tentar entrar em rota privada → volta pra login
   if (privateRoutes.includes(location.pathname) && !token) {
     return <Navigate to="/" replace />;
   }
 
-  // 🔒 Se já tiver token e tentar acessar / ou /login → vai pra home
   if ((location.pathname === "/" || location.pathname === "/login") && token) {
     return <Navigate to="/home" replace />;
   }
