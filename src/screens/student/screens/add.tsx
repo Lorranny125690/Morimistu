@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { FiLogOut } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import bgImage from "../../../assets/image4.png"
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 export function StudentScreen() {
 
@@ -63,7 +63,7 @@ export function StudentScreen() {
           onClick={() => navigate(-1)}
           className="hover:cursor-pointer text-gray-300 hover:text-white transition"
         >
-          <FiLogOut size={28} />
+          <IoMdArrowRoundBack size={28} />
         </button>
       </div>
 

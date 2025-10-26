@@ -1,4 +1,4 @@
-import { IoIosExit } from "react-icons/io";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { motion } from "framer-motion";
 import { AiOutlineTeam } from "react-icons/ai";
 
@@ -24,7 +24,7 @@ export const StudentProfile = ({ closeModal }: StudentProfileProps) => {
           transition={{ duration: 0.5 }}
         >
           <div className="flex h-0.5 justify-between items-center">
-            <IoIosExit
+            <IoMdArrowRoundBack
               className="hover:scale-110 cursor-pointer transition-all hover:cursor-pointer"
               onClick={closeModal}  // Fechar ao clicar no "X"
               size={30}

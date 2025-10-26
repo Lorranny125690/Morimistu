@@ -17,7 +17,7 @@ import { StudentScreen } from "@/screens/student/screens/add";
 import { Notification } from "@/screens/student/screens/notification";
 import { Classes } from "@/screens/classes/classes";
 import { Championship } from "@/screens/championship/champion";
-import { AddClass } from "@/screens/classes/add";
+import { AddClass } from "@/screens/classes/add_classes";
 import { Student } from "@/screens/student";
 import { Password } from "@/screens/auth/changePassword";
 import { Code } from "@/screens/auth/code";
@@ -39,7 +39,7 @@ function AppContent() {
     );
   }
 
-  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email"];
+  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email", "/add_student", "/add_classes"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   // Rotas privadas
