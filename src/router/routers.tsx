@@ -1,5 +1,12 @@
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { useAuth } from "@/context/authContext";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
+import { useAuth, AuthProvider } from "@/context/authContext";
+
 import { Home } from "@/screens/home/home";
 import { Login } from "@/screens/auth/login";
 import { SelectLogin } from "@/screens/auth/userType";
@@ -15,18 +22,29 @@ import { Student } from "@/screens/student";
 import { Password } from "@/screens/auth/changePassword";
 import { Code } from "@/screens/auth/code";
 import { Email } from "@/screens/auth/emailVerification";
-import { AuthProvider } from "@/context/authContext";
 
+/* -----------------------------------------------------------
+   AppContent — controla layout e regras de acesso
+----------------------------------------------------------- */
 function AppContent() {
   const location = useLocation();
-  const { authState } = useAuth();
+  const { authState, authReady } = useAuth();
   const token = authState?.token;
 
-  // rotas públicas (sem header/footer)
+  // Enquanto o token está sendo carregado
+  if (!authReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-white text-lg">
+        Carregando...
+      </div>
+    );
+  }
+
+  // Rotas públicas (sem Header/Footer)
   const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
-  // rotas que exigem token
+  // Rotas privadas
   const privateRoutes = [
     "/home",
     "/dashboard",
@@ -38,13 +56,13 @@ function AppContent() {
     "/add_classes",
   ];
 
-  // se for rota privada e não tiver token → login
+  // 🚫 Se não tiver token e tentar entrar em rota privada → volta pra login
   if (privateRoutes.includes(location.pathname) && !token) {
     return <Navigate to="/" replace />;
   }
 
-  // se estiver logado e tentar ir pra login/seleção → home
-  if ((location.pathname === "/login" || location.pathname === "/") && token) {
+  // 🔒 Se já tiver token e tentar acessar / ou /login → vai pra home
+  if ((location.pathname === "/" || location.pathname === "/login") && token) {
     return <Navigate to="/home" replace />;
   }
 
@@ -54,14 +72,14 @@ function AppContent() {
 
       <main className="flex-grow">
         <Routes>
-          {/* públicas */}
+          {/* Públicas */}
           <Route path="/" element={<SelectLogin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/password" element={<Password />} />
           <Route path="/code" element={<Code />} />
           <Route path="/email" element={<Email />} />
 
-          {/* privadas */}
+          {/* Privadas */}
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/student" element={<Student />} />
@@ -70,6 +88,12 @@ function AppContent() {
           <Route path="/championship" element={<Championship />} />
           <Route path="/add_student" element={<StudentScreen />} />
           <Route path="/add_classes" element={<AddClass />} />
+
+          {/* Fallback */}
+          <Route
+            path="*"
+            element={<Navigate to={token ? "/home" : "/login"} replace />}
+          />
         </Routes>
       </main>
 
@@ -78,6 +102,9 @@ function AppContent() {
   );
 }
 
+/* -----------------------------------------------------------
+   Routers — encapsula tudo com AuthProvider e BrowserRouter
+----------------------------------------------------------- */
 function Routers() {
   return (
     <Router>

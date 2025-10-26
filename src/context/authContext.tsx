@@ -1,21 +1,21 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import type { ReactNode } from "react"; // ✅ obrigatório por causa do verbatimModuleSyntax
+import type { ReactNode } from "react";
 
-// URL base da sua API
 export const API_URL = "https://morimitsu-jiu-jitsu.onrender.com";
 
-// Cria instância do Axios
 const api = axios.create({
   baseURL: API_URL,
 });
 
-// Tipos do contexto
+interface AuthState {
+  token: string | null;
+  authenticated: boolean | null;
+}
+
 interface AuthProps {
-  authState: {
-    token: string | null;
-    authenticated: boolean | null;
-  };
+  authState: AuthState;
+  authReady: boolean; // 👈 novo estado
   onLogin: (email: string, password: string, role: string) => Promise<any>;
   onLogout: () => Promise<void>;
 }
@@ -24,27 +24,24 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-// Criação do contexto
 const AuthContext = createContext<AuthProps | undefined>(undefined);
 
-// Hook customizado
 export const useAuth = (): AuthProps => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth deve ser usado dentro de um <AuthProvider>");
+  if (!context)
+    throw new Error("useAuth deve ser usado dentro de um <AuthProvider>");
   return context;
 };
 
-// Provider principal
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [authState, setAuthState] = useState<{
-    token: string | null;
-    authenticated: boolean | null;
-  }>({
+  const [authState, setAuthState] = useState<AuthState>({
     token: null,
     authenticated: null,
   });
 
-  // Carregar token salvo
+  const [authReady, setAuthReady] = useState(false); // 👈 controla se o carregamento terminou
+
+  // Carregar token salvo no primeiro render
   useEffect(() => {
     const token = localStorage.getItem("my-jwt");
     if (token) {
@@ -53,24 +50,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } else {
       setAuthState({ token: null, authenticated: false });
     }
+    setAuthReady(true); // ✅ finaliza carregamento
   }, []);
 
-  // Função de login
   const login = async (email: string, password: string, role: string) => {
     try {
       const result = await api.post(`/auth/login`, { email, password, role });
-      console.log({ email, password, role });
       const { token } = result.data;
-      console.log(token)
-      
+
       if (token) {
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         localStorage.setItem("my-jwt", token);
         setAuthState({ token, authenticated: true });
         return { error: false };
       }
-      
-      return { error: true, msg: "Usuário ou senha inválidos" };      
+
+      return { error: true, msg: "Usuário ou senha inválidos" };
     } catch (e: any) {
       return {
         error: true,
@@ -79,21 +74,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  // Função de logout
   const logout = async () => {
-    await localStorage.removeItem("my-jwt");
+    localStorage.removeItem("my-jwt");
+    delete axios.defaults.headers.common["Authorization"];
+    setAuthState({ token: null, authenticated: false });
+  };
 
-    axios.defaults.headers.common['Authorization'] = ``;
-    
-    setAuthState({
-        token: null,
-        authenticated: false
-    })
-}
-
-  // Valor exposto
   const value: AuthProps = {
     authState,
+    authReady, // 👈 exposto no contexto
     onLogin: login,
     onLogout: logout,
   };
