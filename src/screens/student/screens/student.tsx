@@ -8,7 +8,7 @@ import { StudentProfile } from "./profile";
 
 export function StudentDesktop() {
   const [isModalOpen, setIsModalOpen] = useState(false); // Controle do modal
-  const [selectedStudent, setSelectedStudent] = useState<any>(null); // Armazena o aluno selecionado
+  const [setSelectedStudent] = useState<any>(null); // Armazena o aluno selecionado
 
   // Função para abrir o modal e mostrar o perfil do aluno
   const openProfileModal = (student: any) => {
