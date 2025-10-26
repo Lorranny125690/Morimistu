@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } else {
       setAuthState({ token: null, authenticated: false });
     }
-    setAuthReady(true); // ✅ finaliza carregamento
+    setAuthReady(true);
   }, []);
 
   const login = async (email: string, password: string, role: string) => {
