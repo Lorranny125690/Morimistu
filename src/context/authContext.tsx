@@ -81,8 +81,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const value: AuthProps = {
-    authState,
-    authReady,
+    authState, //serve para ver o estado de autentiação e pegar seu token para acesso
+    authReady, //serve para saber se meu usuario realmente esta pronto para navegar
     onLogin: login,
     onLogout: logout,
   };
