@@ -22,7 +22,7 @@ import { Student } from "@/screens/student";
 import { Password } from "@/screens/auth/changePassword";
 import { Code } from "@/screens/auth/code";
 import { Email } from "@/screens/auth/emailVerification";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 /* -----------------------------------------------------------
    AppContent — controla layout e regras de acesso
@@ -31,6 +31,24 @@ function AppContent() {
   const location = useLocation();
   const { authState, authReady } = useAuth();
   const token = authState?.token;
+
+  const [prevPath, setPrevPath] = useState(location.pathname);
+  const [renderedPath, setRenderedPath] = useState(location.pathname);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // sempre que muda de rota
+  useEffect(() => {
+    if (location.pathname !== renderedPath) {
+      setIsTransitioning(true);
+      setPrevPath(renderedPath);
+
+      // aguarda o próximo frame pra montar a nova rota
+      requestAnimationFrame(() => {
+        setRenderedPath(location.pathname);
+        setIsTransitioning(false);
+      });
+    }
+  }, [location.pathname, renderedPath]);
 
   if (!authReady) {
     return (
@@ -72,53 +90,39 @@ function AppContent() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#0D0C15] text-white overflow-hidden">
-      {/* Header e Footer não desmontam mais */}
-      <div className={showHeader ? "block" : "hidden"}>
-        <HeaderExport />
-      </div>
+      {showHeader && <HeaderExport />}
 
       <main className="flex-grow relative">
-        {/* ✨ Transição instantânea, sem buraco branco */}
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15, ease: "easeInOut" }}
-            className="absolute inset-0"
-          >
-            <Routes location={location}>
-              {/* Públicas */}
-              <Route path="/" element={<SelectLogin />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/password" element={<Password />} />
-              <Route path="/code" element={<Code />} />
-              <Route path="/email" element={<Email />} />
+        {/* Mantém a rota anterior visível até a nova terminar de renderizar */}
+        <div className="absolute inset-0">
+          <Routes location={{ ...location, pathname: renderedPath }}>
+            {/* Públicas */}
+            <Route path="/" element={<SelectLogin />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/password" element={<Password />} />
+            <Route path="/code" element={<Code />} />
+            <Route path="/email" element={<Email />} />
 
-              {/* Privadas */}
-              <Route path="/home" element={<Home />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/student" element={<Student />} />
-              <Route path="/notification" element={<Notification />} />
-              <Route path="/classes" element={<Classes />} />
-              <Route path="/championship" element={<Championship />} />
-              <Route path="/add_student" element={<StudentScreen />} />
-              <Route path="/add_classes" element={<AddClass />} />
+            {/* Privadas */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/student" element={<Student />} />
+            <Route path="/notification" element={<Notification />} />
+            <Route path="/classes" element={<Classes />} />
+            <Route path="/championship" element={<Championship />} />
+            <Route path="/add_student" element={<StudentScreen />} />
+            <Route path="/add_classes" element={<AddClass />} />
 
-              {/* Fallback */}
-              <Route
-                path="*"
-                element={<Navigate to={token ? "/home" : "/login"} replace />}
-              />
-            </Routes>
-          </motion.div>
-        </AnimatePresence>
+            {/* Fallback */}
+            <Route
+              path="*"
+              element={<Navigate to={token ? "/home" : "/login"} replace />}
+            />
+          </Routes>
+        </div>
       </main>
 
-      <div className={showHeader ? "block" : "hidden"}>
-        <Footer />
-      </div>
+      {showHeader && <Footer />}
     </div>
   );
 }
