@@ -32,20 +32,15 @@ function AppContent() {
   const { authState, authReady } = useAuth();
   const token = authState?.token;
 
-  const [setPrevPath] = useState(location.pathname);
+  // controla a rota atualmente renderizada (mantém a anterior até a nova montar)
   const [renderedPath, setRenderedPath] = useState(location.pathname);
-  const [setIsTransitioning] = useState(false);
 
-  // sempre que muda de rota
   useEffect(() => {
     if (location.pathname !== renderedPath) {
-      setIsTransitioning(true);
-      setPrevPath(renderedPath);
-
-      // aguarda o próximo frame pra montar a nova rota
+      // aguarda o próximo frame para renderizar a nova rota,
+      // garantindo que a antiga permaneça até o React montar tudo
       requestAnimationFrame(() => {
         setRenderedPath(location.pathname);
-        setIsTransitioning(false);
       });
     }
   }, [location.pathname, renderedPath]);
