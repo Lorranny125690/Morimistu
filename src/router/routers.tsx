@@ -71,7 +71,7 @@ function AppContent() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="flex flex-col min-h-screen bg-[#0D0C15] text-white relative h-full bg-[#0D0C15]"
+      className="flex flex-col min-h-screen bg-[#0D0C15] text-white bg-[#0D0C15]"
     >
       {showHeader && <HeaderExport />}
 
