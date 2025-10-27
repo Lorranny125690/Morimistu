@@ -32,9 +32,9 @@ function AppContent() {
   const { authState, authReady } = useAuth();
   const token = authState?.token;
 
-  const [prevPath, setPrevPath] = useState(location.pathname);
+  const [setPrevPath] = useState(location.pathname);
   const [renderedPath, setRenderedPath] = useState(location.pathname);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [setIsTransitioning] = useState(false);
 
   // sempre que muda de rota
   useEffect(() => {
