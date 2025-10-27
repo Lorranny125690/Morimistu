@@ -40,7 +40,15 @@ function AppContent() {
     );
   }
 
-  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email", "/add_student", "/add_classes"];
+  const noHeaderRoutes = [
+    "/",
+    "/login",
+    "/password",
+    "/code",
+    "/email",
+    "/add_student",
+    "/add_classes",
+  ];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   const privateRoutes = [
@@ -64,20 +72,23 @@ function AppContent() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#0D0C15] text-white overflow-hidden">
-      {showHeader && <HeaderExport />}
+      {/* Header e Footer não desmontam mais */}
+      <div className={showHeader ? "block" : "hidden"}>
+        <HeaderExport />
+      </div>
 
-      <main className="flex-grow">
-        {/* ✨ Transição suave entre rotas */}
-        <AnimatePresence mode="wait">
+      <main className="flex-grow relative">
+        {/* ✨ Transição instantânea, sem buraco branco */}
+        <AnimatePresence mode="sync">
           <motion.div
             key={location.pathname}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="h-full"
+            transition={{ duration: 0.15, ease: "easeInOut" }}
+            className="absolute inset-0"
           >
-            <Routes location={location} key={location.pathname}>
+            <Routes location={location}>
               {/* Públicas */}
               <Route path="/" element={<SelectLogin />} />
               <Route path="/login" element={<Login />} />
@@ -105,7 +116,9 @@ function AppContent() {
         </AnimatePresence>
       </main>
 
-      {showHeader && <Footer />}
+      <div className={showHeader ? "block" : "hidden"}>
+        <Footer />
+      </div>
     </div>
   );
 }
