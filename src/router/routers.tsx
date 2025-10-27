@@ -75,7 +75,7 @@ function AppContent() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="h-full"
+            className="relative h-full bg-[#0D0C15]"
           >
             <Routes location={location} key={location.pathname}>
               {/* Públicas */}
