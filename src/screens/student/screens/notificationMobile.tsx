@@ -32,7 +32,7 @@ const students = [
   },
 ];
 
-export const StudentList = () => {
+export const NotificationMobile = () => {
   return (
     <div id="poppins" className="bg-[#011023] text-white min-h-screen flex flex-col font-sans">
       {/* Header */}

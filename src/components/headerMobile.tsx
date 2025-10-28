@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { FaUser } from "react-icons/fa";
-import { IoHomeSharp, IoTrophy } from "react-icons/io5";
+import { IoHomeSharp } from "react-icons/io5";
 import { PiStudentFill } from "react-icons/pi";
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { SiGoogleclassroom } from "react-icons/si";
@@ -10,7 +10,6 @@ export function HeaderMobile () {
     { icon: <IoHomeSharp size={24} />, href: ["/home"], activeClass: "text-white border-b" },
     { icon: <PiStudentFill size={24} />, href: ["/student", "/notification"], activeClass: "text-white border-b" },
     { icon: <SiGoogleclassroom size={24} />, href: ["/classes"], activeClass: "text-red-400 border-b" },
-    { icon: <IoTrophy size={24} />, href: ["/championship"], aactiveClass: "text-red-400 border-b" },
     { icon: <RiDashboardHorizontalFill size={24} />, href: ["/dashboard"], activeClass: "text-red-400 border-b" },
     { icon: <FaUser size={24} />, href: ["/dashboard"], activeClass: "text-red-400 border-b" },
   ];

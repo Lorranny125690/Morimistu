@@ -14,7 +14,6 @@ import { HeaderExport } from "@/components/index";
 import { Footer } from "@/components/footer";
 import { Dashboard } from "@/screens/dashboard/dashboard";
 import { StudentScreen } from "@/screens/student/screens/add";
-import { Notification } from "@/screens/student/screens/notification";
 import { Classes } from "@/screens/classes/classes";
 import { Championship } from "@/screens/championship/champion";
 import { AddClass } from "@/screens/classes/add_classes";
@@ -23,6 +22,7 @@ import { Password } from "@/screens/auth/changePassword";
 import { Code } from "@/screens/auth/code";
 import { Email } from "@/screens/auth/emailVerification";
 import { AnimatePresence, motion } from "framer-motion";
+import { StudentNotification } from "@/screens/student/indexNotification";
 
 /* -----------------------------------------------------------
    AppContent — controla layout e regras de acesso
@@ -100,7 +100,7 @@ function AppContent() {
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/student" element={<Student />} />
-            <Route path="/notification" element={<Notification />} />
+            <Route path="/notification" element={<StudentNotification />} />
             <Route path="/classes" element={<Classes />} />
             <Route path="/championship" element={<Championship />} />
             <Route path="/add_student" element={<StudentScreen />} />
