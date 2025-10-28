@@ -10,11 +10,19 @@ import { useAuth } from "@/context/authContext.tsx";
 export function HomeMobile() {
   const { authState } = useAuth();
   const username = authState?.username || "Usuário";
+  const { onLogout } = useAuth();
+
+  const handleLogout = () => {
+    onLogout();
+  }
 
   return (
     <div id="poppins" className="min-h-screen bg-[#201E33] text-white flex flex-col overflow-x-hidden">
       {/* Header */}
       <div className="p-4">
+        <div onClick={handleLogout}>
+          <h2>sair</h2>
+        </div>
         <div className="flex justify-end gap-2 items-center">
           <p className="text-xs">{username}</p>
           <img src={logo} alt="avatar" className="w-8 h-8 rounded-full" />

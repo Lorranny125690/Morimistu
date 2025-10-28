@@ -1,8 +1,11 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { motion } from "framer-motion";
 import { AiOutlineTeam } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-export const userProfile = () => {
+export function UserProfile () {
+  const navigate = useNavigate();
+  
   return (
     <div className="fixed inset-0 bg-[#000F22] flex items-center justify-center p-6 z-50">
       <motion.div
@@ -23,10 +26,8 @@ export const userProfile = () => {
             <IoMdArrowRoundBack
               className="hover:scale-110 cursor-pointer transition-all hover:cursor-pointer"
               size={30}
+              onClick={() => navigate(-1)}
             />
-            <button className="hover:scale-110 cursor-pointer transition-all bg-white text-[#7C9FC9] font-medium py-3 flex text-[12px] w-[153px] h-9 justify-center items-center rounded-full">
-              Promover a professor
-            </button>
           </div>
 
           <div className="flex flex-col items-center">

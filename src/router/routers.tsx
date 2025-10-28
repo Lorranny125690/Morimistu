@@ -23,6 +23,7 @@ import { Code } from "@/screens/auth/code";
 import { Email } from "@/screens/auth/emailVerification";
 import { AnimatePresence, motion } from "framer-motion";
 import { StudentNotification } from "@/screens/student/indexNotification";
+import { UserProfile } from "@/screens/user/profile";
 
 /* -----------------------------------------------------------
    AppContent — controla layout e regras de acesso
@@ -40,7 +41,7 @@ function AppContent() {
     );
   }
 
-  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email", "/add_student", "/add_classes"];
+  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email", "/add_student", "/add_classes", "/profile"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   const privateRoutes = [
@@ -52,6 +53,7 @@ function AppContent() {
     "/championship",
     "/add_student",
     "/add_classes",
+    "/profile"
   ];
 
   if (privateRoutes.includes(location.pathname) && !token) {
@@ -105,6 +107,7 @@ function AppContent() {
             <Route path="/championship" element={<Championship />} />
             <Route path="/add_student" element={<StudentScreen />} />
             <Route path="/add_classes" element={<AddClass />} />
+            <Route path="/profile" element={<UserProfile />} />
 
             <Route
               path="*"
