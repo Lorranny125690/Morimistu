@@ -11,6 +11,7 @@ const api = axios.create({
 interface AuthState {
   token: string | null;
   authenticated: boolean | null;
+  username: string | null;
 }
 
 interface AuthProps {
@@ -37,18 +38,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [authState, setAuthState] = useState<AuthState>({
     token: null,
     authenticated: null,
+    username: null,
   });
 
   const [authReady, setAuthReady] = useState(false);
 
-  // Carregar token salvo no primeiro render
+  // Carregar token e username salvos no primeiro render
   useEffect(() => {
     const token = localStorage.getItem("my-jwt");
+    const username = localStorage.getItem("username");
+
     if (token) {
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      setAuthState({ token, authenticated: true });
+      setAuthState({ token, authenticated: true, username });
     } else {
-      setAuthState({ token: null, authenticated: false });
+      setAuthState({ token: null, authenticated: false, username: null });
     }
     setAuthReady(true);
   }, []);
@@ -56,12 +60,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (email: string, password: string, role: string) => {
     try {
       const result = await api.post(`/auth/login`, { email, password, role });
-      const { token } = result.data;
+      const { token, username } = result.data;
 
       if (token) {
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         localStorage.setItem("my-jwt", token);
-        setAuthState({ token, authenticated: true });
+        localStorage.setItem("username", username);
+        setAuthState({ token, authenticated: true, username });
         return { error: false };
       }
 
@@ -76,13 +81,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = async () => {
     localStorage.removeItem("my-jwt");
+    localStorage.removeItem("username");
     delete axios.defaults.headers.common["Authorization"];
-    setAuthState({ token: null, authenticated: false });
+    setAuthState({ token: null, authenticated: false, username: null });
   };
 
   const value: AuthProps = {
-    authState, //serve para ver o estado de autentiação e pegar seu token para acesso
-    authReady, //serve para saber se meu usuario realmente esta pronto para navegar
+    authState,
+    authReady,
     onLogin: login,
     onLogout: logout,
   };

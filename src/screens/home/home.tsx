@@ -5,15 +5,18 @@ import { PiStudentFill } from "react-icons/pi";
 import { motion } from "framer-motion";
 import { HeaderMobile } from "@/components/headerMobile.tsx";
 import { AlunosAniversariando, AlunosAptosGraduar, TurmasRecentes } from "./components/grid.tsx";
+import { useAuth } from "@/context/authContext.tsx";
 
 export function HomeMobile() {
+  const { authState } = useAuth();
+  const username = authState?.username || "Usuário";
 
   return (
-    <div className="min-h-screen bg-[#201E33] text-white flex flex-col font-['Josefin Slab'] overflow-x-hidden">
+    <div id="poppins" className="min-h-screen bg-[#201E33] text-white flex flex-col overflow-x-hidden">
       {/* Header */}
       <div className="p-4">
         <div className="flex justify-end gap-2 items-center">
-          <p className="text-xs">Nome do usuário</p>
+          <p className="text-xs">{username}</p>
           <img src={logo} alt="avatar" className="w-8 h-8 rounded-full" />
         </div>
 
@@ -32,7 +35,7 @@ export function HomeMobile() {
             <motion.a key={i} href={card.href} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 300 }}>
               <div className="flex items-center justify-center flex-col h-[122px] w-[110px] bg-[#CCC8F3] text-center shadow-[-8px_8px_0px_#6b61bd] hover:shadow-[-12px_12px_0px_#4c3fa1] transition-all duration-300 cursor-pointer">
                 {card.icon}
-                <p className="text-[#453E7D] w-[76px] text-[10px] font-[200]">{card.title}</p>
+                <p className="text-[#453E7D] w-[76px] text-[12px] font-medium">{card.title}</p>
               </div>
             </motion.a>
           ))}
