@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import { studentsMock } from "../components/studentMosck";
 import { beltClasses } from "../components/beltclasses";
 import { Choice } from "../components/choose";
-import { useState } from "react"; // Adicionado para gerenciar o estado do modal
+import { useState } from "react";
 import { StudentProfile } from "./profile";
 
 export function StudentDesktop() {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Controle do modal
-  const [setSelectedStudent] = useState<any>(null); // Armazena o aluno selecionado
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [setSelectedStudent] = useState<any>(null);
 
   // Função para abrir o modal e mostrar o perfil do aluno
   const openProfileModal = (student: any) => {
@@ -111,7 +111,7 @@ export function StudentDesktop() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="hover:cursor-pointer px-4 py-1 bg-[#0070F3] hover:bg-blue-700 rounded-[20px] text-white text-sm font-medium transition"
-                      onClick={() => openProfileModal(student)} // Abre o modal com o perfil do aluno
+                      onClick={() => openProfileModal(student)}
                     >
                       Ver
                     </motion.button>

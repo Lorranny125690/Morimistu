@@ -45,17 +45,35 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // Carregar token e username salvos no primeiro render
   useEffect(() => {
-    const token = localStorage.getItem("my-jwt");
-    const username = localStorage.getItem("username");
-
-    if (token) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      setAuthState({ token, authenticated: true, username });
-    } else {
-      setAuthState({ token: null, authenticated: false, username: null });
-    }
-    setAuthReady(true);
+    const checkToken = async () => {
+      const token = localStorage.getItem("my-jwt");
+      const username = localStorage.getItem("username");
+  
+      if (token) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  
+        try {
+          // Requisição simples para validar token
+          await api.get("/auth/validate-token"); // sua rota de validação no backend
+          setAuthState({ token, authenticated: true, username });
+        } catch (err) {
+          // Token inválido ou expirado
+          console.warn("Token inválido ou expirado:", err);
+          localStorage.removeItem("my-jwt");
+          localStorage.removeItem("username");
+          delete api.defaults.headers.common["Authorization"];
+          setAuthState({ token: null, authenticated: false, username: null });
+        }
+      } else {
+        setAuthState({ token: null, authenticated: false, username: null });
+      }
+  
+      setAuthReady(true);
+    };
+  
+    checkToken();
   }, []);
+  
 
   const login = async (email: string, password: string, role: string) => {
     try {
