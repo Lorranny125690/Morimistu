@@ -60,16 +60,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (email: string, password: string, role: string) => {
     try {
       const result = await api.post(`/auth/login`, { email, password, role });
-      const { token, username } = result.data;
-
+      const { token, user } = result.data;
+  
       if (token) {
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         localStorage.setItem("my-jwt", token);
-        localStorage.setItem("username", username);
-        setAuthState({ token, authenticated: true, username });
+        localStorage.setItem("username", user.name);
+        localStorage.setItem("role", user.role);
+  
+        setAuthState({
+          token,
+          authenticated: true,
+          username: user.name,
+        });
+  
         return { error: false };
       }
-
+  
       return { error: true, msg: "Usuário ou senha inválidos" };
     } catch (e: any) {
       return {
@@ -78,6 +85,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       };
     }
   };
+  
 
   const logout = async () => {
     localStorage.removeItem("my-jwt");
