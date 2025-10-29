@@ -225,10 +225,8 @@ export function StudentScreen() {
                   />
                 </div>
 
-                {/* empty placeholder so grid keeps columns consistent */}
                 <div />
 
-                {/* Row 3 */}
                 <div>
                   <label className="block text-[10px] text-black">Email</label>
                   <input
@@ -298,7 +296,6 @@ export function StudentScreen() {
                     <option value="">Escolher gênero</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
-                    <option value="Outro">Outro</option>
                   </select>
                 </div>
               </form>
