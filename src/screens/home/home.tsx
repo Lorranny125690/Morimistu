@@ -6,6 +6,9 @@ import { motion } from "framer-motion";
 import { HeaderMobile } from "@/components/headerMobile.tsx";
 import { useAuth } from "@/context/authContext.tsx";
 import { TurmasRecentes, AlunosAptosGraduar, AlunosAniversariando } from "./components/grid.tsx";
+import { SiGoogleclassroom } from "react-icons/si";
+import { LuUsersRound } from "react-icons/lu";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 export function HomeMobile() {
   const { authState, onLogout } = useAuth();
@@ -73,31 +76,31 @@ export function HomeMobile() {
       </div>
 
       {/* Cards numéricos */}
-      <div className="grid grid-cols-2 gap-4 px-4 mt-10 w-full max-w-[600px] mx-auto">
+      <div className="flex items-center grid grid-cols-2 gap-2 mt-10 mx-auto">
         {[
-          { title: "Número de alunos", value: 72 },
-          { title: "Número de equipes", value: 18 },
-          { title: "Número de turmas", value: 12 },
-          { title: "Número de professores", value: 6 },
+          { title: "Número de alunos", value: 72, icon: <PiStudentFill className="text-[#322F50]" size={20} /> },
+          { title: "Número de equipes", value: 18, icon: <LuUsersRound className="text-[#322F50]" size={20} /> },
+          { title: "Número de turmas", value: 12, icon: <SiGoogleclassroom className="text-[#322F50]" size={20} /> },
+          { title: "Número de professores", value: 6, icon: <FaChalkboardTeacher className="text-[#322F50]" size={20} /> },
         ].map((card, i) => (
           <motion.div
             key={i}
-            className="bg-[#322F50] rounded-[28px] h-[22vh] min-h-[170px] flex flex-col py-4 items-center"
+            className="bg-[#322F50] rounded-[28px] h-[20vh] min-h-[176px] w-[20vh] flex flex-col py-4 items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
           >
-<div className="flex items-center justify-between w-full max-w-[85%] gap-3">
-  <p className="text-[2.1vh] font-regular leading-tight flex-1">
-    {card.title}
-  </p>
-  <div className="rounded-full flex-shrink-0 flex items-center justify-center h-[4.5vh] w-[4.5vh] bg-white">
-    <PiStudentFill className="text-[#322F50]" size={18} />
-  </div>
-</div>
+            <div className="mb-[2vh] flex items-center justify-between w-full max-w-[85%] gap-3">
+              <p className="text-[2.1vh] font-regular leading-tight flex-1">
+                {card.title}
+              </p>
+              <div className="rounded-full flex-shrink-0 flex items-center justify-center h-[4.5vh] w-[4.5vh] bg-white">
+                {card.icon}
+              </div>
+            </div>
 
             <div className="flex w-full px-4 justify-start items-start">
-              <p className="text-[7vh] font-bold leading-none">{card.value}</p>
+              <p className="text-[7.2vh] font-bold leading-none">{card.value}</p>
             </div>
           </motion.div>
         ))}

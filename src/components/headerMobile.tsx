@@ -34,9 +34,9 @@ export function HeaderMobile () {
     
   return(
     <div>
-      <motion.div className="h-[86px] text-white/20 fixed bottom-0 left-0 w-full bg-[#7B73C3]/20 flex justify-around items-center" initial={{ y: 100 }} animate={{ y: 0 }} transition={{ type: "spring", stiffness: 200 }}>
+      <div className="h-[86px] text-white/20 fixed bottom-0 left-0 w-full bg-[#7B73C3]/20 flex justify-around items-center">
         {renderLinks()}
-      </motion.div>
+      </div>
     </div>
   )
 }
