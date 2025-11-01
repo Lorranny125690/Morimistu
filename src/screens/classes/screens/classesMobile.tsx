@@ -3,50 +3,46 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdAdd } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Choice } from "../components/choose";
 
 const students = [
   {
     id: 1,
-    name: "Manoel Gomes",
+    name: "Turma 01",
     belt: "Faixa azul",
-    age: "16 anos",
-    presences: "15 presenças",
     photo: "https://i.pinimg.com/736x/01/97/64/019764eba3f4699ef0bbc5927b21a178.jpg",
+    students: 12,
   },
   {
     id: 2,
-    name: "Manoel Gomes",
+    name: "Turma 02",
     belt: "Faixa azul",
-    age: "16 anos",
-    presences: "15 presenças",
     photo: "https://i.pinimg.com/736x/01/97/64/019764eba3f4699ef0bbc5927b21a178.jpg",
+    students: 12,
   },
   {
     id: 3,
-    name: "Manoel Gomes",
+    name: "Turma 03",
     belt: "Faixa azul",
-    age: "16 anos",
-    presences: "15 presenças",
     photo: "https://i.pinimg.com/736x/01/97/64/019764eba3f4699ef0bbc5927b21a178.jpg",
+    students: 12,
   },
 ];
 
-export const StudentList = () => {
+export const ClassesMobile = () => {
   return (
     <motion.div
       id="poppins"
       className="bg-[#011023] text-white min-h-screen flex flex-col font-sans overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6 }}
     >
       {/* Header */}
       <motion.header
-        className="flex justify-between items-center p-9 mt-6 py-0"
-        initial={{ y: -40, opacity: 0 }}
+        className="flex justify-between mb-8 items-center p-9 mt-6 py-0"
+        initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 120, delay: 0.1 }}
+        transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
       >
         <div className="flex items-center relative">
           <CiSearch
@@ -59,34 +55,14 @@ export const StudentList = () => {
           />
         </div>
 
-        <motion.div
-          className="flex items-center gap-1"
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 150 }}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="flex justify-center text-[#02304F] items-center bg-blue-500 h-6 w-6 rounded-sm p-[2px]"
         >
-          <div className="text-sm px-6 py-[2px] font-semibold rounded-xl cursor-pointer hover:text-[#00AAFF] transition-colors">
-            Filtrar por ↓
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="flex justify-center text-[#02304F] items-center bg-blue-500 h-6 w-6 rounded-sm p-[2px]"
-          >
-            <IoMdAdd size={16} />
-          </motion.button>
-        </motion.div>
+          <IoMdAdd size={16} />
+        </motion.button>
       </motion.header>
-
-      {/* Tabs */}
-      <motion.div
-        className="flex justify-center mb-7"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <Choice />
-      </motion.div>
 
       {/* Cards de alunos */}
       <motion.div
@@ -96,7 +72,9 @@ export const StudentList = () => {
         variants={{
           hidden: {},
           visible: {
-            transition: { staggerChildren: 0.15 },
+            transition: {
+              staggerChildren: 0.15, // delay entre os cards
+            },
           },
         }}
       >
@@ -109,28 +87,28 @@ export const StudentList = () => {
             }}
             transition={{ type: "spring", stiffness: 120 }}
             whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
             className="bg-[#052659]/60 rounded-xl p-3 w-full max-w-[346px] h-[110px] flex items-center justify-between shadow-md backdrop-blur-sm"
+            whileTap={{ scale: 0.97 }}
           >
             <div className="px-4 flex items-center gap-4">
               <motion.img
                 src={student.photo}
                 alt={student.name}
                 className="w-15 h-15 rounded-full object-cover"
-                whileHover={{ rotate: 3 }}
+                whileHover={{ rotate: 5 }}
                 transition={{ type: "spring", stiffness: 200 }}
               />
               <div className="flex flex-col">
                 <h3 className="text-[20px] font-semibold">{student.name}</h3>
                 <p className="text-[16px] text-white/60">{student.belt}</p>
                 <p className="text-[12px] text-white/60">
-                  {student.age} | {student.presences}
+                  {student.students} alunos
                 </p>
               </div>
             </div>
             <motion.button
-              whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.8 }}
+              whileHover={{ scale: 1.1 }}
               className="pr-5 flex items-center justify-center text-white rounded-full"
             >
               <FaEye size={25} />

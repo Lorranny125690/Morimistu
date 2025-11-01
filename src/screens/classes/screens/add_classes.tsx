@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import bgImage from "../../assets/image4.png"
+import bgImage from "../../../assets/image4.png"
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 export function AddClass() {

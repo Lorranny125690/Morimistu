@@ -1,11 +1,11 @@
 import { FaUser, FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { IoMdAdd } from "react-icons/io";
-import { classesMock } from "./components/classesMock";
+import { classesMock } from "../components/classesMock";
 import { PiStudentBold } from "react-icons/pi";
 import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 
-export function Classes() {
+export function ClassesDesktop() {
   return (
     <div className="min-h-screen bg-[#0D0C15] mb-40 text-white font-sans">
       {/* Conteúdo */}
