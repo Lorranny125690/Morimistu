@@ -64,31 +64,46 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (email: string, password: string, role: string) => {
     try {
       const result = await api.post(`/auth/login`, { email, password, role });
-      const { token, user } = result.data;
+      const { token, user, status } = result.data;
   
       if (token) {
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         localStorage.setItem("my-jwt", token);
-        localStorage.setItem("username", user.name);
+        localStorage.setItem("username", user.username);
         localStorage.setItem("role", user.role);
+        localStorage.setItem("status", status);
   
         setAuthState({
           token,
           authenticated: true,
-          username: user.name,
+          username: user.username,
         });
   
-        return { error: false };
+        return { error: false, data: result.data };
       }
   
       return { error: true, msg: "Usuário ou senha inválidos" };
     } catch (e: any) {
-      return {
-        error: true,
-        msg: e.response?.data?.msg || "Erro ao fazer login",
-      };
+      const status = e.response?.status;
+      const data = e.response?.data;
+  
+      let msg = "Erro ao fazer login";
+  
+      if (status === 400) {
+        msg = data?.message || "Email e senha obrigatórios!";
+      } else if (status === 401) {
+        msg = data?.message || "Email ou senha incorretos!";
+      } else if (status === 403) {
+        msg = data?.message || "Usuário não está cadastrado com este tipo de login!";
+      } else if (status === 422) {
+        msg = data?.message || "Formato de email inválido.";
+      } else if (status >= 500) {
+        msg = "Erro no servidor. Tente novamente mais tarde.";
+      }
+  
+      return { error: true, status, msg };
     }
-  };
+  };  
 
   const verify = async (email: string) => {
     try {

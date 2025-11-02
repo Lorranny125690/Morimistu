@@ -123,7 +123,6 @@ export function Login() {
   const [modalMsg, setModalMsg] = useState("");
   const [modalType, setModalType] = useState<"error" | "success">("error");
 
-  //acessa o tipo do usuário enviado pelo navigate (ADMIN ou TEACHER)
   const userType = location.state?.userType || "Usuário";
 
   const handleLogin = async () => {
@@ -138,26 +137,25 @@ export function Login() {
   
     try {
       const res = await onLogin!(email, senha, userType);
-  
-      if (res.data?.status === 200) {
+    
+      if (!res.error) {
         setModalMsg("🎉 Login feito com sucesso! Bem-vindo de volta 💖");
         setModalType("success");
         setModalVisible(true);
         setTimeout(() => navigate("/home"), 1500);
-      } else if (res.data?.status === 400) {
-        setModalMsg("⚠️ Email obrigatório — digita direitinho, vai! 💌");
-        setModalType("error");
-        setModalVisible(true);
-      } else if (res.data?.status === 401) {
-        setModalMsg("🙈 Esse e-mail não existe ou tá incorreto!");
-        setModalType("error");
-        setModalVisible(true);
-      } else if (res.data?.status === 422) {
-        setModalMsg("💫 Formato de e-mail inválido! Confere se não faltou um '@'.");
-        setModalType("error");
-        setModalVisible(true);
       } else {
-        setModalMsg("😕 Algo deu errado... tenta novamente mais tarde!");
+        if (res.status === 400) {
+          setModalMsg("⚠️ " + res.msg);
+        } else if (res.status === 401) {
+          setModalMsg("🙈 " + res.msg);
+        } else if (res.status === 403) {
+          setModalMsg("🚫 " + res.msg);
+        } else if (res.status === 422) {
+          setModalMsg("🚫 " + res.msg);
+        } else {
+          setModalMsg("😕 " + res.msg);
+        }
+    
         setModalType("error");
         setModalVisible(true);
       }
@@ -168,7 +166,7 @@ export function Login() {
     } finally {
       setLoading(false);
     }
-  };
+  }    
 
   return (
     <div
