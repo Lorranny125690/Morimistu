@@ -14,6 +14,63 @@ type FieldProps = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
+import { FaTimes } from "react-icons/fa";
+
+type ModalMsgProps = {
+  show: boolean;
+  onClose: () => void;
+  message: string;
+  type?: "error" | "success";
+};
+
+export const ModalMsg = ({ show, onClose, message, type = "error" }: ModalMsgProps) => (
+  <AnimatePresence>
+    {show && (
+      <motion.div
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.div
+          className={`relative bg-[#2c2222] rounded-2xl shadow-2xl w-[320px] p-6 text-center border ${
+            type === "error" ? "border-red-400" : "border-green-400"
+          }`}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <button
+            className="absolute top-3 right-3 text-gray-300 hover:text-white"
+            onClick={onClose}
+          >
+            <FaTimes size={14} />
+          </button>
+
+          <div className="text-4xl mb-2">
+            {type === "error" ? "💔" : "✨"}
+          </div>
+
+          <p className="text-gray-200 font-serif text-sm leading-snug">{message}</p>
+
+          <motion.button
+            onClick={onClose}
+            whileTap={{ scale: 0.95 }}
+            className={`mt-5 w-[100px] py-1 rounded-full text-sm font-semibold ${
+              type === "error"
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-green-500 hover:bg-green-600"
+            } text-white transition`}
+          >
+            Ok
+          </motion.button>
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
 
 const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -61,30 +118,53 @@ export function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [erro, setErro] = useState<string | null>(null);
+  const [erro] = useState<string | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalType, setModalType] = useState<"error" | "success">("error");
 
   //acessa o tipo do usuário enviado pelo navigate (ADMIN ou TEACHER)
   const userType = location.state?.userType || "Usuário";
 
   const handleLogin = async () => {
     if (!email || !senha) {
-      setErro("Preencha todos os campos!");
+      setModalMsg("📧 Oops... falta preencher tudo!");
+      setModalType("error");
+      setModalVisible(true);
       return;
     }
-
-    setErro(null);
+  
     setLoading(true);
-
+  
     try {
       const res = await onLogin!(email, senha, userType);
-
-      if (res?.error) {
-        setErro(res.msg || "Erro ao fazer login");
+  
+      if (res.data?.status === 200) {
+        setModalMsg("🎉 Login feito com sucesso! Bem-vindo de volta 💖");
+        setModalType("success");
+        setModalVisible(true);
+        setTimeout(() => navigate("/home"), 1500);
+      } else if (res.data?.status === 400) {
+        setModalMsg("⚠️ Email obrigatório — digita direitinho, vai! 💌");
+        setModalType("error");
+        setModalVisible(true);
+      } else if (res.data?.status === 401) {
+        setModalMsg("🙈 Esse e-mail não existe ou tá incorreto!");
+        setModalType("error");
+        setModalVisible(true);
+      } else if (res.data?.status === 422) {
+        setModalMsg("💫 Formato de e-mail inválido! Confere se não faltou um '@'.");
+        setModalType("error");
+        setModalVisible(true);
       } else {
-        navigate("/home");
+        setModalMsg("😕 Algo deu errado... tenta novamente mais tarde!");
+        setModalType("error");
+        setModalVisible(true);
       }
-    } catch (e) {
-      setErro("Erro inesperado. Tente novamente.");
+    } catch {
+      setModalMsg("💥 Erro inesperado! Verifica tua conexão, ok?");
+      setModalType("error");
+      setModalVisible(true);
     } finally {
       setLoading(false);
     }
@@ -189,6 +269,13 @@ export function Login() {
           </motion.div>
         )}
       </AnimatePresence>
+      <ModalMsg
+  show={modalVisible}
+  onClose={() => setModalVisible(false)}
+  message={modalMsg}
+  type={modalType}
+/>
+
     </div>
   );
 }
