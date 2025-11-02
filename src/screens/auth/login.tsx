@@ -118,7 +118,6 @@ export function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [erro] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
   const [modalType, setModalType] = useState<"error" | "success">("error");
@@ -215,8 +214,6 @@ export function Login() {
             />
           </div>
 
-          {erro && <p className="text-red-400 text-sm mt-3">{erro}</p>}
-
           <a
             href="/email"
             className="text-xs flex text-gray-300 self-start px-4 mt-3 mb-8 hover:text-[#C54848] transition"
@@ -268,11 +265,11 @@ export function Login() {
         )}
       </AnimatePresence>
       <ModalMsg
-  show={modalVisible}
-  onClose={() => setModalVisible(false)}
-  message={modalMsg}
-  type={modalType}
-/>
+        show={modalVisible}
+        onClose={() => setModalVisible(false)}
+        message={modalMsg}
+        type={modalType}
+      />
 
     </div>
   );
