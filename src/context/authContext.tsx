@@ -19,6 +19,9 @@ interface AuthProps {
   authReady: boolean;
   onLogin: (email: string, password: string, role: string) => Promise<any>;
   onLogout: () => Promise<void>;
+  onVerify: (email: string) => Promise<any>;
+  onCode: (code: number) => Promise<any>;
+  onPassword: (password: string) => Promise<any>;
 }
 
 interface AuthProviderProps {
@@ -86,7 +89,52 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       };
     }
   };
-  
+
+  const verify = async (email: string) => {
+    try {
+      const result = await api.post(`/auth/request-reset`, { email });
+      return {
+        error: false,
+        msg: result.data?.msg || "E-mail de recuperação enviado com sucesso",
+      };
+    } catch (e: any) {
+      return {
+        error: true,
+        msg: e.response?.data?.msg || "Erro ao solicitar redefinição de senha",
+      };
+    }
+  };
+
+  const codeVerify = async (code: number) => {
+    try {
+      const result = await api.post(`/auth/verify-code`, {code})
+      return {
+        error: false,
+        msg: result.data?.msg || "Código avaliado com sucesso"
+      }
+
+    } catch (e: any) {
+      return{
+        error: true,
+        msg: e.response?.data?.msg || "Erro de código"
+      }
+    }
+  };
+
+  const changePassword = async (password: string) => {
+    try {
+      const result = await api.post(`/auht/reset-password`, password)
+      return {
+        error: false,
+        msg: result.data?.msg || "Senha mudada com sucesso"
+      }
+    } catch (e: any) {
+      return {
+        error: true,
+        msg: e.response?.data?.msg || "Erro ao trocar senha"
+      }
+    }
+  }
 
   const logout = async () => {
     localStorage.removeItem("my-jwt");
@@ -100,6 +148,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     authReady,
     onLogin: login,
     onLogout: logout,
+    onVerify: verify,
+    onCode: codeVerify,
+    onPassword: changePassword
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

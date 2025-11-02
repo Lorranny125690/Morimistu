@@ -5,14 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import image from "../../assets/logo.png";
 import sideImage from "../../assets/image.png";
 import bgImage from "../../assets/image1.png";
+import { useAuth } from "@/context/authContext";
 
 type FieldProps = {
   icon: React.ReactNode;
   label: string;
   type?: string;
+  value: number | string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Field = ({ icon, label, type = "text" }: FieldProps) => (
+const Field = ({ icon, label, type = "text", onChange, value }: FieldProps) => (
   <div className="flex w-full lg:w-[300px] border border-[#C54848]">
     <div className="flex items-center justify-center w-12 bg-[#222121] border-r border-[#C54848]">
       {icon}
@@ -24,6 +27,8 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
       <input
         type={type}
         className="h-5 w-full bg-[#222121] px-1 text-[12px] text-white placeholder-gray-400 focus:outline-none"
+        value={value}
+        onChange={onChange}
       />
     </div>
   </div>
@@ -32,12 +37,22 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
 export function Code() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [code, setCode] = useState<number | "">("");
+  const { onCode } = useAuth();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    if (!code) return; // evita enviar vazio
     setLoading(true);
-    setTimeout(() => {
-      navigate("/password");
-    }, 5000);
+
+    try {
+      await onCode(code);
+      setTimeout(() => {
+        navigate("/password");
+      }, 2000);
+    } catch (err) {
+      console.error("Erro ao verificar código:", err);
+      setLoading(false);
+    }
   };
 
   return (
@@ -47,7 +62,6 @@ export function Code() {
     >
       <div className="absolute inset-0 bg-[#1D1010]/70" />
 
-      {/* card com animação de entrada */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -64,19 +78,26 @@ export function Code() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 120, delay: 0.2 }}
           />
-          <h2 className="text-3xl font-bold mb-8 text-center">Um código foi enviado para seu email, insira:</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">
+            Um código foi enviado para seu e-mail. Insira:
+          </h2>
 
           <div className="mb-8 mt-4 w-full flex items-center justify-center flex-col space-y-6">
-            <Field icon={<FaLock className="text-white" />} label="Senha" type="password" />
+            <Field
+              value={code}
+              onChange={(e) => setCode(e.target.valueAsNumber || "")}
+              icon={<FaLock className="text-white" />}
+              label="Código"
+              type="number"
+            />
           </div>
 
-          {/* botão login com animação */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
             className="mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white font-serif text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
             onClick={handleLogin}
-            disabled={loading}
+            disabled={loading || !code}
           >
             {loading ? "Carregando..." : "Entrar"}
           </motion.button>
@@ -84,7 +105,11 @@ export function Code() {
 
         {/* direita: imagem */}
         <div className="hidden lg:block w-1/2">
-          <img src={sideImage} alt="login" className="w-full h-full object-cover" />
+          <img
+            src={sideImage}
+            alt="login"
+            className="w-full h-full object-cover"
+          />
         </div>
       </motion.div>
 

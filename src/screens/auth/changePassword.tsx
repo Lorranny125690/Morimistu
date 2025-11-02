@@ -5,14 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import image from "../../assets/logo.png";
 import sideImage from "../../assets/image.png";
 import bgImage from "../../assets/image1.png";
+import { useAuth } from "@/context/authContext";
 
 type FieldProps = {
   icon: React.ReactNode;
   label: string;
   type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Field = ({ icon, label, type = "text" }: FieldProps) => (
+const Field = ({ icon, label, type = "text", onChange, value}: FieldProps) => (
   <div className="flex w-full lg:w-[300px] border border-[#C54848]">
     <div className="flex items-center justify-center w-12 bg-[#222121] border-r border-[#C54848]">
       {icon}
@@ -22,6 +25,8 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
         <span className="text-[10px] text-gray-200 font-serif">{label}</span>
       </div>
       <input
+        value={value}
+        onChange={onChange}
         type={type}
         className="h-5 w-full bg-[#222121] px-1 text-[12px] text-white placeholder-gray-400 focus:outline-none"
       />
@@ -32,11 +37,14 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
 export function Password() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState("");
+  const { onPassword } = useAuth();
 
   const handleLogin = () => {
+    onPassword(password)
     setLoading(true);
     setTimeout(() => {
-      navigate("/home");
+      navigate("/");
     }, 2000);
   };
 
@@ -67,7 +75,7 @@ export function Password() {
           <h2 className="text-4xl font-bold mb-8 text-center">Trocar senha</h2>
 
           <div className="mb-8 mt-4 w-full flex items-center justify-center flex-col space-y-6">
-            <Field icon={<FaLock className="text-white" />} label="Senha" type="password" />
+            <Field onChange={(e) => setPassword(e.target.value)} value={password} icon={<FaLock className="text-white" />} label="Senha" type="password" />
           </div>
 
           {/* botão login com animação */}

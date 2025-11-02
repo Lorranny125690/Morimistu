@@ -4,14 +4,18 @@ import { motion } from "framer-motion";
 import image from "../../assets/logo.png";
 import sideImage from "../../assets/image.png";
 import bgImage from "../../assets/image1.png";
+import { useState } from "react";
+import { useAuth } from "@/context/authContext";
 
 type FieldProps = {
   icon: React.ReactNode;
   label: string;
   type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Field = ({ icon, label, type = "text" }: FieldProps) => (
+const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => (
   <div className="flex w-full lg:w-[300px] border border-[#C54848]">
     <div className="flex items-center justify-center w-12 bg-[#222121] border-r border-[#C54848]">
       {icon}
@@ -22,6 +26,8 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
       </div>
       <input
         type={type}
+        value={value}
+        onChange={onChange}
         className="h-5 w-full bg-[#222121] px-1 text-[12px] text-white placeholder-gray-400 focus:outline-none"
       />
     </div>
@@ -30,10 +36,13 @@ const Field = ({ icon, label, type = "text" }: FieldProps) => (
 
 export function Email() {
   const navigate = useNavigate();
+  const {onVerify} = useAuth();
+  const [email, setEmail] = useState("")
 
-  const handleLogin = () => {
-    navigate("/code");
-  };
+  const handleLogin = async () => {
+    onVerify(email)
+    navigate("/code")
+  }
 
   return (
     <div
@@ -63,7 +72,7 @@ export function Email() {
           seu Email</h2>
 
           <div className="mb-8 mt-4 w-full flex items-center justify-center flex-col space-y-6">
-            <Field icon={<FaUser className="text-white" />} label="Email" type="email" />
+            <Field onChange={(e) => setEmail(e.target.value)} value={email} icon={<FaUser className="text-white" />} label="Email" type="email" />
           </div>
 
           {/* botão login com animação */}
@@ -73,7 +82,7 @@ export function Email() {
             className="mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white font-serif text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
             onClick={handleLogin}
           >
-            Entrar
+            Enviar
           </motion.button>
         </div>
 
