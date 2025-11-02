@@ -29,6 +29,7 @@ interface AuthProps {
   onVerify: (email: string) => Promise<ApiResponse>;
   onCode: (code: number) => Promise<ApiResponse>;
   onPassword: (password: string) => Promise<ApiResponse>;
+  onAskRequest: (email: string) => Promise<ApiResponse>
 }
 
 interface AuthProviderProps {
@@ -139,10 +140,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         msg: result.data?.msg || "Código avaliado com sucesso",
       };
     } catch (e: any) {
-      return {
-        error: true,
-        msg: e.response?.data?.msg || "Erro ao verificar código",
-      };
+      const status = e.response?.status;
+      const data = e.response?.data;
+
+      let msg = "Erro ao enviar solicitação de recuperação";
+
+      if (status === 400) msg = data?.message || "Nova senha obrigatória!";
+      else if (status === 422) msg = data?.message || "Senha muito curta (Mínimo 6 dígitos)";
+      else if (status >= 500) msg = "Erro no servidor. Tente novamente mais tarde.";
+
+      return { error: true, status, msg };
     }
   };
 
@@ -167,6 +174,28 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const askforRegister = async (email: string): Promise<ApiResponse> => {
+    try {
+      const result = await api.post(`/auth/register-request`, { email });
+      return {
+        error: false,
+        msg: result.data?.msg || "Pedido enviado com sucesso",
+      };
+    } catch (e: any) {
+        const status = e.response?.status;
+        const data = e.response?.data;
+
+        let msg = "Erro ao enviar solicitação de recuperação";
+
+        if (status === 400) msg = data?.message || "Email obrigatório!";
+        else if (status === 409) msg = data?.message || "Email já cadastrado"
+        else if (status === 422) msg = data?.message || "Formato inválido de email!";
+        else if (status >= 500) msg = "Erro no servidor. Tente novamente mais tarde.";
+
+        return { error: true, status, msg };
+    }
+  };
+
   const logout = async (): Promise<void> => {
     localStorage.removeItem("my-jwt");
     localStorage.removeItem("username");
@@ -183,6 +212,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     onVerify: verify,
     onCode: codeVerify,
     onPassword: changePassword,
+    onAskRequest: askforRegister
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -165,7 +165,11 @@ export function Login() {
     } finally {
       setLoading(false);
     }
-  }    
+  }
+
+  const handleNavigate = (type: "1" | "2") => {
+    navigate("/login", { state: { userType: type } });
+  };
 
   return (
     <div
@@ -215,8 +219,11 @@ export function Login() {
           </div>
 
           <a
-            href="/email"
             className="text-xs flex text-gray-300 self-start px-4 mt-3 mb-8 hover:text-[#C54848] transition"
+            onClick={(e) => {
+              e.preventDefault(); // previne reload
+              handleNavigate("1"); // navega para login com tipo 1
+            }}
           >
             Esqueceu a senha?
           </a>
@@ -235,7 +242,7 @@ export function Login() {
           <p className="text-lg text-gray-200 mt-6 font-serif text-center leading-tight">
             Não tem uma conta?
             <br />
-            <a href="#" className="text-[#C54848] hover:underline">
+            <a onClick={(e) => {e.preventDefault(); handleNavigate("2");}} className="text-[#C54848] hover:underline">
               Enviar email ao Administrador
             </a>
           </p>
