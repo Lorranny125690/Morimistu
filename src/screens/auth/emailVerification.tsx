@@ -30,7 +30,6 @@ const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => (
         value={value}
         onChange={onChange}
         className="h-5 w-full bg-[#222121] px-1 text-[12px] text-white placeholder-gray-400 focus:outline-none"
-        autoFocus
       />
     </div>
   </div>
@@ -38,38 +37,44 @@ const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => (
 
 export function Email() {
   const navigate = useNavigate();
-  const { onVerify } = useAuth();
-
-  const [email, setEmail] = useState("");
+  const {onVerify} = useAuth();
+  const [email, setEmail] = useState("")
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
   const [modalType, setModalType] = useState<"error" | "success">("error");
 
-  const handleVerify = async () => {
+  const handleLogin = async () => {
     if (!email) {
-      setModalMsg("📧 Oops... falta preencher o campo de e-mail!");
+      setModalMsg("📧 Oops... falta preencher tudo!");
       setModalType("error");
       setModalVisible(true);
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
       const res = await onVerify(email);
 
       if (!res.error) {
-        setModalMsg("📨 Email de verificação enviado! Verifique sua caixa de entrada 💌");
+        setModalMsg("🎉 Login feito com sucesso! Bem-vindo de volta 💖");
         setModalType("success");
         setModalVisible(true);
-        setTimeout(() => navigate("/code"), 700);
+        setTimeout(() => navigate("/code"), 500);
       } else {
-        setModalMsg(
-          res.status
-            ? `${res.msg}`
-            : "😕 Ocorreu um erro ao enviar o e-mail. Tente novamente."
-        );
+        if (res.status === 400) {
+          setModalMsg("⚠️ " + res.msg);
+        } else if (res.status === 401) {
+          setModalMsg("🙈 " + res.msg);
+        } else if (res.status === 403) {
+          setModalMsg("🚫 " + res.msg);
+        } else if (res.status === 422) {
+          setModalMsg("🚫 " + res.msg);
+        } else {
+          setModalMsg("😕 " + res.msg);
+        }
+    
         setModalType("error");
         setModalVisible(true);
       }
@@ -80,23 +85,23 @@ export function Email() {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
     <div
-      className="relative z-[1000] min-h-screen flex items-center justify-center bg-cover bg-center"
+      className="z-1000 relative min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="absolute inset-0 bg-[#1D1010]/70" />
 
-      {/* Card principal */}
+      {/* card com animação de entrada */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 flex bg-[#383333] overflow-hidden shadow-xl w-[350px] lg:w-[980px] h-[600px] rounded-xl"
+        className="relative z-10 flex bg-[#383333] overflow-hidden shadow-xl w-[350px] lg:w-[980px] h-[600px]"
       >
-        {/* Esquerda: formulário */}
+        {/* esquerda: formulário */}
         <div className="flex flex-col justify-center items-center w-full lg:w-1/2 px-6 lg:px-20 text-white">
           <motion.img
             src={image}
@@ -106,33 +111,26 @@ export function Email() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 120, delay: 0.2 }}
           />
-          <h2 className="text-4xl font-bold mb-8 text-center">
-            Coloque seu Email
-          </h2>
+          <h2 className="text-4xl font-bold mb-8 text-center">Coloque
+          seu Email</h2>
 
           <div className="mb-8 mt-4 w-full flex items-center justify-center flex-col space-y-6">
-            <Field
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              icon={<FaUser className="text-white" />}
-              label="Email"
-              type="email"
-            />
+            <Field onChange={(e) => setEmail(e.target.value)} value={email} icon={<FaUser className="text-white" />} label="Email" type="email" />
           </div>
 
-          {/* Botão */}
+          {/* botão login com animação */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
             className="mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white font-serif text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
-            onClick={handleVerify}
+            onClick={handleLogin}
             disabled={loading}
           >
-            {loading ? "Carregando..." : "Enviar"}
+            {loading ? "Carregando..." : "Entrar"}
           </motion.button>
         </div>
 
-        {/* Direita: imagem */}
+        {/* direita: imagem */}
         <div className="hidden lg:block w-1/2">
           <img src={sideImage} alt="login" className="w-full h-full object-cover" />
         </div>

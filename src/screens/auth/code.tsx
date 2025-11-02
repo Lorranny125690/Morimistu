@@ -6,6 +6,7 @@ import image from "../../assets/logo.png";
 import sideImage from "../../assets/image.png";
 import bgImage from "../../assets/image1.png";
 import { useAuth } from "@/context/authContext";
+import { ModalMsg } from "./login";
 
 type FieldProps = {
   icon: React.ReactNode;
@@ -39,21 +40,50 @@ export function Code() {
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState<number | "">("");
   const { onCode } = useAuth();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalType, setModalType] = useState<"error" | "success">("error");
 
   const handleLogin = async () => {
-    if (!code) return; // evita enviar vazio
+    if (!code) {
+      setModalMsg("📧 Oops... falta preencher tudo!");
+      setModalType("error");
+      setModalVisible(true);
+      return;
+    }
+  
     setLoading(true);
-
+  
     try {
-      await onCode(code);
-      setTimeout(() => {
-        navigate("/password");
-      }, 2000);
-    } catch (err) {
-      console.error("Erro ao verificar código:", err);
+      const res = await onCode(code);
+
+      if (!res.error) {
+        setModalMsg("🎉 Login feito com sucesso! Bem-vindo de volta 💖");
+        setModalType("success");
+        setModalVisible(true);
+        setTimeout(() => navigate("/code"), 500);
+      } else {
+        if (res.status === 400) {
+          setModalMsg("⚠️ " + res.msg);
+        } else if (res.status === 401) {
+          setModalMsg("🙈 " + res.msg);
+        } else if (res.status === 422) {
+          setModalMsg("🚫 " + res.msg);
+        } else {
+          setModalMsg("😕 " + res.msg);
+        }
+    
+        setModalType("error");
+        setModalVisible(true);
+      }
+    } catch {
+      setModalMsg("💥 Erro inesperado! Verifica tua conexão, ok?");
+      setModalType("error");
+      setModalVisible(true);
+    } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
     <div
@@ -130,6 +160,13 @@ export function Code() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ModalMsg
+        show={modalVisible}
+        onClose={() => setModalVisible(false)}
+        message={modalMsg}
+        type={modalType}
+      />
     </div>
   );
 }

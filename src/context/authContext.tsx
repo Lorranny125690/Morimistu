@@ -154,10 +154,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         msg: result.data?.msg || "Senha alterada com sucesso",
       };
     } catch (e: any) {
-      return {
-        error: true,
-        msg: e.response?.data?.msg || "Erro ao trocar senha",
-      };
+        const status = e.response?.status;
+        const data = e.response?.data;
+
+        let msg = "Erro ao enviar solicitação de recuperação";
+
+        if (status === 400) msg = data?.message || "Nova senha obrigatória!";
+        else if (status === 422) msg = data?.message || "Senha muito curta (Mínimo 6 dígitos)";
+        else if (status >= 500) msg = "Erro no servidor. Tente novamente mais tarde.";
+
+        return { error: true, status, msg };
     }
   };
 
