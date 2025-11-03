@@ -168,7 +168,7 @@ export function Login() {
   }
 
   const handleNavigate = (type: "1" | "2") => {
-    navigate("/login", { state: { userType: type } });
+    navigate("/email", { state: { userType: type } });
   };
 
   return (
