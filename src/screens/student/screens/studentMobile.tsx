@@ -4,6 +4,7 @@ import { IoMdAdd } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Choice } from "../components/choose";
+import { useNavigate } from "react-router-dom";
 
 const students = [
   {
@@ -33,6 +34,8 @@ const students = [
 ];
 
 export const StudentList = () => {
+  const navigate = useNavigate();
+  
   return (
     <motion.div
       id="poppins"
@@ -132,6 +135,7 @@ export const StudentList = () => {
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.8 }}
               className="pr-5 flex items-center justify-center text-white rounded-full"
+              onClick={() => navigate("/profileMobile")}
             >
               <FaEye size={25} />
             </motion.button>

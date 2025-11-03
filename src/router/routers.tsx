@@ -21,8 +21,9 @@ import { Code } from "@/screens/auth/code";
 import { Email } from "@/screens/auth/emailVerification";
 import { AnimatePresence, motion } from "framer-motion";
 import { StudentNotification } from "@/screens/student/indexNotification";
-import { UserProfile } from "@/screens/user/profile";
 import { Classes } from "@/screens/classes";
+import { Profile } from "@/screens/user";
+import { ProfileMobile } from "@/screens/student/screens/profileMobile";
 
 /* -----------------------------------------------------------
    AppContent — controla layout e regras de acesso
@@ -40,7 +41,7 @@ function AppContent() {
     );
   }
 
-  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email", "/add_student", "/add_classes", "/profile"];
+  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email", "/add_student", "/add_classes"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   const privateRoutes = [
@@ -105,8 +106,8 @@ function AppContent() {
             <Route path="/classes" element={<Classes />} />
             <Route path="/add_student" element={<StudentScreen />} />
             <Route path="/add_classes" element={<AddClass />} />
-            <Route path="/profile" element={<UserProfile />} />
-
+            <Route path="/profile" element={<Profile/>} />
+            <Route path="/profileMobile" element={<ProfileMobile/>} />
             <Route
               path="*"
               element={<Navigate to={token ? "/home" : "/login"} replace />}

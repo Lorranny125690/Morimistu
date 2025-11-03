@@ -1,7 +1,6 @@
 import { ClassesDesktop } from "./screens/classes";
 import { ClassesMobile } from "./screens/classesMobile";
 
-
 export function Classes () {
   return(
     <div>
@@ -13,5 +12,4 @@ export function Classes () {
       </div>
     </div>
   )
-
 }
