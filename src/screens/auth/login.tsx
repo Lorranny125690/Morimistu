@@ -52,7 +52,7 @@ export const ModalMsg = ({ show, onClose, message, type = "error" }: ModalMsgPro
             {type === "error" ? "💔" : "✨"}
           </div>
 
-          <p className="text-gray-200 font-serif text-sm leading-snug">{message}</p>
+          <p className="text-gray-200  text-sm leading-snug">{message}</p>
 
           <motion.button
             onClick={onClose}
@@ -77,14 +77,14 @@ const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => {
   const inputType = type === "password" && mostrarSenha ? "text" : type;
 
   return (
-    <div className="flex w-full lg:w-[300px] border border-[#C54848] relative">
+    <div id="mono" className="flex w-full lg:w-[300px] border border-[#C54848] relative">
       <div className="flex items-center justify-center w-12 bg-[#222121] border-r border-[#C54848]">
         {icon}
       </div>
 
       <div className="flex-1 flex flex-col relative">
         <div className="h-5 flex items-center px-1 bg-[#222121] border-b border-[#C54848]">
-          <span className="text-[10px] text-gray-200 font-serif">{label}</span>
+          <span className="text-[10px] text-gray-200 ">{label}</span>
         </div>
 
         <div className="relative flex items-center">
@@ -198,7 +198,7 @@ export function Login() {
 
           {/* 👇 muda o texto conforme o tipo */}
           <h2 className="text-4xl font-bold mb-2">Entrar</h2>
-          <p className="text-sm text-gray-300 mb-6 font-serif">
+          <p className="text-sm text-gray-300 mb-6 ">
             Login como <span className="text-[#C54848] font-semibold">{userType}</span>
           </p>
 
@@ -232,14 +232,14 @@ export function Login() {
           <motion.button
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
-            className="mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white font-serif text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
+            className="mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white  text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
             onClick={handleLogin}
             disabled={loading}
           >
             {loading ? "Carregando..." : "Entrar"}
           </motion.button>
 
-          <p className="text-lg text-gray-200 mt-6 font-serif text-center leading-tight">
+          <p className="text-lg text-gray-200 mt-6  text-center leading-tight">
             Não tem uma conta?
             <br />
             <a onClick={(e) => {e.preventDefault(); handleNavigate("2");}} className="text-[#C54848] hover:underline">

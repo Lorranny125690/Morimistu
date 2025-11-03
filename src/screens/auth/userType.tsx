@@ -24,6 +24,7 @@ export function SelectLogin() {
 
   return (
     <div
+      id="mono"
       className="relative min-h-screen min-w-screen flex items-center justify-center text-white bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
@@ -45,7 +46,7 @@ export function SelectLogin() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 120, delay: 0.4 }}
           />
-          <h2 className="font-serif text-2xl font-bold">Entrar como:</h2>
+          <h2 className=" text-2xl font-bold">Entrar como:</h2>
         </motion.div>
 
         <div className="flex flex-col gap-6 mb-10">
@@ -59,7 +60,7 @@ export function SelectLogin() {
             <div className="flex items-center justify-center w-12 h-10 border-r border-[#C54848] hover:text-white transition">
               <FaUserShield className="text-white" />
             </div>
-            <span className="flex-1 text-start px-2 font-serif text-lg">
+            <span className="flex-1 text-start px-2  text-lg">
               Administrador
             </span>
           </motion.button>
@@ -74,7 +75,7 @@ export function SelectLogin() {
             <div className="flex items-center justify-center w-12 h-10 border-r border-[#C54848] hover:text-white transition">
               <FaChalkboardTeacher className="text-white" />
             </div>
-            <span className="flex-1 text-start px-2 font-serif text-lg">
+            <span className="flex-1 text-start px-2  text-lg">
               Professor
             </span>
           </motion.button>

@@ -87,6 +87,7 @@ export function Code() {
 
   return (
     <div
+      id="mono"
       className="z-1000 relative min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >

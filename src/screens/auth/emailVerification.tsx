@@ -23,7 +23,7 @@ const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => (
     </div>
     <div className="flex-1 flex flex-col">
       <div className="h-5 flex items-center px-1 bg-[#222121] border-b border-[#C54848]">
-        <span className="text-[10px] text-gray-200 font-serif">{label}</span>
+        <span className="text-[10px] text-gray-200">{label}</span>
       </div>
       <input
         type={type}
@@ -138,6 +138,7 @@ export function Email() {
 
   return (
     <div
+      id="mono"
       className="z-1000 relative min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
@@ -171,7 +172,7 @@ export function Email() {
           <motion.button
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
-            className="mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white font-serif text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
+            className="mt-2 w-[109px] h-[37px] bg-[#C54848] hover:bg-red-700 hover:cursor-pointer text-white text-[15px] rounded-t-[30px] rounded-b-[20px] transition disabled:opacity-50"
             onClick={handleChoice}
             disabled={loading}
           >
