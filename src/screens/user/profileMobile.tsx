@@ -24,7 +24,7 @@ export function ProfileMobile() {
     <div className="min-h-screen bg-[#011023] overflow-y-auto pb-[100px]">
       {/* Header */}
       <motion.header
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 80, damping: 20 }}
         className="p-8 flex flex-row justify-end items-center mb-6"
@@ -34,9 +34,9 @@ export function ProfileMobile() {
 
       {/* Perfil */}
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
+        initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
         className="flex flex-row items-center justify-center gap-5 mb-13"
       >
         <img
@@ -45,51 +45,83 @@ export function ProfileMobile() {
           alt="no tenemos"
         />
         <div className="flex flex-col text-center">
-          <p className="font-bold text-[28px]">Laura Matos</p>
-          <p className="font-medium text-[24px]">Faixa azul</p>
-          <p className="font-thin text-[20px]">16 anos</p>
-          <p className="font-regular text-[16px]">Grau 1</p>
+          <motion.p
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="font-bold text-[28px]"
+          >
+            Laura Matos
+          </motion.p>
+          <motion.p
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="font-medium text-[24px]"
+          >
+            Faixa azul
+          </motion.p>
+          <motion.p
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="font-thin text-[20px]"
+          >
+            16 anos
+          </motion.p>
+          <motion.p
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="font-regular text-[16px]"
+          >
+            Grau 1
+          </motion.p>
         </div>
       </motion.div>
 
       {/* Cards */}
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={{
-          visible: {
-            transition: { staggerChildren: 0.2 },
-          },
-        }}
-        className="flex flex-row justify-center items-center mt-8 gap-9 flex-wrap"
-      >
-        {[
-          { title: "Frequência", value: "15" },
-          { title: "Turmas", value: "02" },
-          { title: "Turmas Ministrando", value: "02" },
-        ].map((card) => (
-          <motion.div
-            key={card.title}
-            variants={{
-              hidden: { y: 50, opacity: 0 },
-              visible: { y: 0, opacity: 1 },
-            }}
-            transition={{ type: "spring", stiffness: 70, damping: 20 }}
-            className="bg-[#052659]/60 w-[16vh] h-[10.7vh] rounded-lg flex flex-col justify-center"
-          >
-            <div className="flex flex-row items-center justify-start px-2 gap-2">
-              <p className="text-[16px]">{card.title}</p>
-            </div>
-            <p className="px-2 text-[64px] leading-none">{card.value}</p>
-          </motion.div>
-        ))}
-      </motion.div>
+      <div className="flex flex-row justify-center items-center mt-8 gap-9 flex-wrap">
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-[#052659]/60 w-[16vh] h-[10.7vh] rounded-lg"
+        >
+          <div className="flex flex-row items-center justify-start">
+            <p className="px-2 text-[16px]">Frequência</p>
+          </div>
+          <p className="px-2 text-[64px] leading-none">15</p>
+        </motion.div>
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="bg-[#052659]/60 w-[16vh] h-[10.7vh] rounded-lg"
+        >
+          <div className="flex flex-row items-center justify-start px-2 gap-2">
+            <p className="text-[16px]">Turmas</p>
+          </div>
+          <p className="px-2 text-[64px] leading-none">02</p>
+        </motion.div>
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="bg-[#052659]/60 w-[16vh] h-[10.7vh] rounded-lg"
+        >
+          <div className="flex flex-row items-center justify-start px-2 gap-2">
+            <p className="text-[16px] leading-none">Turmas Ministrando</p>
+          </div>
+          <p className="px-2 text-[64px] leading-none">02</p>
+        </motion.div>
+      </div>
 
       {/* Informações */}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
         className="px-12 py-8"
       >
         <h3 className="text-[28px] font-bold mb-2">Informações</h3>
@@ -100,13 +132,11 @@ export function ProfileMobile() {
             {Object.entries(alunoInfoEsquerda).map(([chave, valor]) => (
               <motion.p
                 key={chave}
-                initial={{ x: -20, opacity: 0 }}
+                initial={{ x: -10, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.3 }}
+                transition={{ delay: 0.1 }}
               >
-                <span className="font-semibold capitalize">
-                  {formatLabel(chave)}:
-                </span>{" "}
+                <span className="font-semibold capitalize">{formatLabel(chave)}:</span>{" "}
                 {valor}
               </motion.p>
             ))}
@@ -116,13 +146,11 @@ export function ProfileMobile() {
             {Object.entries(alunoInfoDireita).map(([chave, valor]) => (
               <motion.p
                 key={chave}
-                initial={{ x: 20, opacity: 0 }}
+                initial={{ x: 10, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.3 }}
+                transition={{ delay: 0.1 }}
               >
-                <span className="font-semibold capitalize">
-                  {formatLabel(chave)}:
-                </span>{" "}
+                <span className="font-semibold capitalize">{formatLabel(chave)}:</span>{" "}
                 {valor}
               </motion.p>
             ))}
