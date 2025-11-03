@@ -16,6 +16,7 @@ export function HeaderMobile() {
 
   const pathname = location.pathname;
   const isDashboard = pathname.startsWith("/dashboard");
+  const isProfile = pathname.startsWith("/profile");
 
   const renderLinks = () =>
     navLinks.map((link) => {
@@ -39,7 +40,7 @@ export function HeaderMobile() {
     <div>
       <div
         className={`z-100 h-[86px] text-white/20 fixed bottom-0 left-0 w-full flex justify-around items-center transition-all duration-300 ${
-          isDashboard ? "bg-[#322F50]" : "bg-[#7B73C3]/20"
+          isDashboard ? "bg-[#322F50]" : isProfile ? "bg-[#192443]" : "bg-[#7B73C3]/20"
         }`}
       >
         {renderLinks()}

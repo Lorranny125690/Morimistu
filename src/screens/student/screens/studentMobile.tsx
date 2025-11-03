@@ -1,4 +1,3 @@
-import { HeaderMobile } from "@/components/headerMobile";
 import { CiSearch } from "react-icons/ci";
 import { IoMdAdd } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
@@ -35,7 +34,7 @@ const students = [
 
 export const StudentList = () => {
   const navigate = useNavigate();
-  
+
   return (
     <motion.div
       id="poppins"
@@ -142,8 +141,6 @@ export const StudentList = () => {
           </motion.div>
         ))}
       </motion.div>
-
-      <HeaderMobile />
     </motion.div>
   );
 };

@@ -41,7 +41,7 @@ function AppContent() {
     );
   }
 
-  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email", "/add_student", "/add_classes"];
+  const noHeaderRoutes = ["/", "/login", "/password", "/code", "/email", "/add_student", "/add_classes", "/profileMobile"];
   const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   const privateRoutes = [

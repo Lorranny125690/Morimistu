@@ -17,7 +17,7 @@ const alunoInfo = {
 
 export function ProfileMobile () {
   const navigate = useNavigate();
-  
+
   return(
     <div className="min-h-screen bg-[#011023]">
       <header className="p-8 flex flex-row justify-between items-center mb-6">
