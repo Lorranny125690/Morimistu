@@ -66,7 +66,8 @@ export function StudentScreen() {
   }, [formData.nascimento]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#41414B] flex-col">
+    <div className="flex min-h-screen items-center justify-center bg-[#41414B] flex-col px-4">
+
       {/* Botão Voltar */}
       <div className="w-full px-6 m-[-50px] flex justify-start max-w-7xl mb-6">
         <button
@@ -78,7 +79,7 @@ export function StudentScreen() {
       </div>
 
       {/* Container principal */}
-      <div className="relative w-full max-w-7xl h-[721px] bg-white flex items-center justify-center shadow-xl overflow-hidden">
+      <div className="relative w-full max-w-7xl min-h-[700px] bg-white flex items-center justify-center shadow-xl overflow-hidden mx-2 md:mx-auto">
         <div
           className="absolute top-0 left-0 w-full h-[40%] bg-cover bg-center"
           style={{ backgroundImage: `url(${bgImage})` }}
@@ -92,7 +93,7 @@ export function StudentScreen() {
           transition={{ duration: 0.6 }}
         >
           {/* Card Perfil */}
-          <div className="flex flex-col justify-center items-center bg-white shadow-lg space-y-6 p-6 w-[200px] h-[410px] border border-gray-100">
+          <div className="flex flex-col justify-center items-center bg-white shadow-lg space-y-6 p-6 w-[90%] max-w-[220px] md:w-[200px] h-auto md:h-[410px] border border-gray-100">
             <div className="flex flex-col items-center">
               <img
                 src={formData.photo}
@@ -149,13 +150,13 @@ export function StudentScreen() {
 
               {/* Formulário: GRID com 3 colunas (direita pequena para Grau) */}
               <form
-                className="px-10 gap-6"
+                className="px-6 md:px-10 gap-6"
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "1fr 1fr 90px",
+                  gridTemplateColumns: "1fr 1fr 80px",
                   gridAutoRows: "min-content",
                   alignItems: "start",
-                  gap: "20px",
+                  gap: "16px",
                 }}
               >
                 {/* Row 1 */}
