@@ -29,7 +29,7 @@ export function ProfileMobile() {
         className="p-8 flex flex-row justify-between items-center mb-6"
       >
         <IoMdArrowRoundBack onClick={() => navigate(-1)} size={20} />
-        <button className="bg-[#02304F] h-[2.5vh] w-[15.5vh] text-[10px] rounded-full">
+        <button className="bg-[#02304F] py-1 px-4 text-[10px] rounded-full">
           Promover a professor
         </button>
         <AiFillEdit size={20} />
@@ -89,11 +89,11 @@ export function ProfileMobile() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="bg-[#052659]/60 w-[16vh] h-[10.7vh] rounded-lg"
+          className="bg-[#052659]/60 w-[36%] h-24 rounded-lg"
         >
-          <div className="flex flex-row items-center justify-center">
+          <div className="flex flex-row items-center justify-start">
             <p className="px-2 text-[16px]">Frequência</p>
-            <div className="flex justify-center items-center bg-[#011023] w-[5vh] h-[1.7vh] rounded-full text-[8px]">
+            <div className="flex justify-center items-center bg-[#011023] py-1 px-2 rounded-full text-[8px]">
               Graduar
             </div>
           </div>
@@ -103,7 +103,7 @@ export function ProfileMobile() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="bg-[#052659]/60 w-[16vh] h-[10.7vh] rounded-lg"
+          className="bg-[#052659]/60 w-[36%] h-24 rounded-lg"
         >
           <div className="flex flex-row items-center justify-start px-2 gap-2">
             <p className="text-[16px]">Turmas</p>
