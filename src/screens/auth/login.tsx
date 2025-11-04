@@ -27,7 +27,7 @@ export const ModalMsg = ({ show, onClose, message, type = "error" }: ModalMsgPro
   <AnimatePresence>
     {show && (
       <motion.div
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -183,7 +183,7 @@ export function Login() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 flex bg-[#383333] overflow-hidden shadow-xl w-[350px] lg:w-[980px] h-[600px]"
+        className="relative z-10 flex bg-[#383333] overflow-hidden shadow-xl w-[85%] lg:w-[980px] h-[600px]"
       >
         {/* esquerda: formulário */}
         <div className="flex flex-col justify-center items-center w-full lg:w-1/2 px-6 lg:px-20 text-white">
@@ -219,7 +219,7 @@ export function Login() {
           </div>
 
           <a
-            className="text-xs flex text-gray-300 self-start px-4 mt-3 mb-8 hover:text-[#C54848] transition"
+            className="hover:underline cursor-pointer text-xs flex text-gray-300 self-start px-4 mt-3 mb-8 transition"
             onClick={(e) => {
               e.preventDefault(); // previne reload
               handleNavigate("1"); // navega para login com tipo 1
@@ -242,7 +242,7 @@ export function Login() {
           <p className="text-lg text-gray-200 mt-6  text-center leading-tight">
             Não tem uma conta?
             <br />
-            <a onClick={(e) => {e.preventDefault(); handleNavigate("2");}} className="text-[#C54848] hover:underline">
+            <a onClick={(e) => {e.preventDefault(); handleNavigate("2");}} className="cursor-pointer text-[#C54848] hover:underline">
               Enviar email ao Administrador
             </a>
           </p>
