@@ -8,7 +8,7 @@ import { StudentProfile } from "./profile";
 
 export function StudentDesktop() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [setSelectedStudent] = useState<any>(null);
+  const [selectedStudent, setSelectedStudent] = useState<any>(null);
 
   // Função para abrir o modal e mostrar o perfil do aluno
   const openProfileModal = (student: any) => {
@@ -124,7 +124,12 @@ export function StudentDesktop() {
       </div>
 
       {/* Modal de Perfil */}
-      {isModalOpen && <StudentProfile closeModal={closeModal} />}
+      {isModalOpen && selectedStudent && (
+        <StudentProfile
+          closeModal={closeModal}
+          student={selectedStudent} // se quiser mostrar os dados reais
+        />
+      )}
     </div>
   );
 }
