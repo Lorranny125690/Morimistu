@@ -69,7 +69,7 @@ export function StudentScreen() {
     <div className="flex min-h-screen items-center justify-center bg-[#41414B] flex-col px-4">
 
       {/* Botão Voltar */}
-      <div className="w-full px-6 m-[-50px] flex justify-start max-w-7xl mb-6">
+      <div className="w-full px-6 flex justify-start max-w-7xl mb-6">
         <button
           onClick={() => navigate(-1)}
           className="hover:cursor-pointer text-gray-300 hover:text-white transition"
