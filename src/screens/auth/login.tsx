@@ -13,6 +13,7 @@ type FieldProps = {
   type?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 import { FaTimes } from "react-icons/fa";
 
@@ -71,8 +72,7 @@ export const ModalMsg = ({ show, onClose, message, type = "error" }: ModalMsgPro
   </AnimatePresence>
 );
 
-
-const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => {
+const Field = ({ icon, label, type = "text", value, onChange, onKeyDown }: FieldProps) => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const inputType = type === "password" && mostrarSenha ? "text" : type;
 
@@ -93,6 +93,7 @@ const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => {
             value={value}
             onChange={onChange}
             className="h-5 w-full bg-[#222121] px-1 text-[12px] text-white placeholder-gray-400 focus:outline-none pr-7"
+            onKeyDown={onKeyDown}
           />
 
           {type === "password" && (
@@ -110,6 +111,7 @@ const Field = ({ icon, label, type = "text", value, onChange }: FieldProps) => {
   );
 };
 
+
 export function Login() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -123,6 +125,12 @@ export function Login() {
   const [modalType, setModalType] = useState<"error" | "success">("error");
 
   const userType = location.state?.userType || "Usuário";
+
+  const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
 
   const handleLogin = async () => {
     if (!email || !senha) {
@@ -208,6 +216,7 @@ export function Login() {
               label="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={handleKey}
             />
             <Field
               icon={<FaLock className="text-white" />}
@@ -215,6 +224,7 @@ export function Login() {
               type="password"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
+              onKeyDown={handleKey}
             />
           </div>
 
