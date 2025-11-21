@@ -64,10 +64,9 @@ function AppContent() {
     return <Navigate to="/home" replace />;
   }
 
-  // 👉 Aqui: detecta se é uma rota pública
+  //detecta se é uma rota pública
   const isPublic = ["/", "/login", "/password", "/code", "/email"].includes(location.pathname);
 
-  // ✅ Para rotas públicas — sem animação
   if (isPublic) {
     return (
       <div className="flex flex-col min-h-screen bg-[#0D0C15] text-white">
